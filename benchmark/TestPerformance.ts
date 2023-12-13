@@ -486,7 +486,7 @@ export class TestPerformance {
 			}
 		}
 		console.log(`Located ${sources.length} source files.`);
-		process.stdout.write(TestPerformance.getOptionsDescription(TestPerformance.TOP_PACKAGE));
+		console.log(TestPerformance.getOptionsDescription(TestPerformance.TOP_PACKAGE));
 
 		// let executorService: ExecutorService =  Executors.newFixedThreadPool(TestPerformance.FILE_GRANULARITY ? 1 : TestPerformance.NUMBER_OF_THREADS, new NumberedThreadFactory());
 		// let passResults: Promise<any>[] = [];
@@ -1648,7 +1648,7 @@ class DescriptiveLexerErrorListener implements ANTLRErrorListener<number> {
 			sourceName = `${sourceName}:${line}:${charPositionInLine}: `;
 		}
 
-		process.stderr.write(sourceName + "line " + line + ":" + charPositionInLine + " " + msg);
+		console.log(sourceName + "line " + line + ":" + charPositionInLine + " " + msg);
 	}
 
 }

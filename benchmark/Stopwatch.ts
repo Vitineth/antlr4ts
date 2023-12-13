@@ -6,8 +6,8 @@
 import { TimeSpan } from "./TimeSpan";
 
 export class Stopwatch {
-	private _elapsed: number[] = [0, 0];
-	private _start?: number[];
+	private _start?: number;
+	private _elapsed: number = 0;
 
 	public static startNew(): Stopwatch {
 		let result = new Stopwatch();
@@ -20,27 +20,20 @@ export class Stopwatch {
 			throw new Error("The stopwatch is already started.");
 		}
 
-		this._start = process.hrtime();
+		this._start = performance.now();
 	}
 
 	public elapsed(): TimeSpan {
-		let result = { seconds: this._elapsed[0], nanos: this._elapsed[1] };
+		let result = this._elapsed;
+
 		if (this._start !== undefined) {
-			let stop = process.hrtime();
-			result.seconds += stop[0] - this._start[0];
-			if (stop[0] === this._start[0]) {
-				result.nanos += stop[1] - this._start[1];
-			} else {
-				result.nanos += TimeSpan.NANOS_PER_SECOND - this._start[1] + stop[1];
-			}
+			result = performance.now() - this._start;
 		}
 
-		while (result.nanos > TimeSpan.NANOS_PER_SECOND) {
-			result.seconds++;
-			result.nanos -= TimeSpan.NANOS_PER_SECOND;
-		}
-
-		return new TimeSpan(result.seconds, result.nanos);
+		const seconds = Math.floor(result / 1000);
+		const millis = result % 1000;
+		const nanos = millis / 1e6;
+		return new TimeSpan(seconds, nanos);
 	}
 
 	public elapsedMillis(): number {

@@ -90,7 +90,7 @@ export function lexerTest(options: LexerTestOptions) {
 		tokens.fill();
 		tokens.getTokens().forEach((t) => console.log(t.toString()));
 		if (options.showDFA) {
-			process.stdout.write(lex.interpreter.getDFA(Lexer.DEFAULT_MODE).toLexerString());
+			console.log(lex.interpreter.getDFA(Lexer.DEFAULT_MODE).toLexerString());
 		}
 	});
 }
