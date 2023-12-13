@@ -22,15 +22,9 @@
     "typeRoots": [
       "./node_modules/@types"
     ],
-    "types": [
-      "node",
-      "mocha"
-    ]
   },
   "exclude": [
     "node_modules",
     "target",
-    "tool",
-    "test/runtime"
   ]
 }
