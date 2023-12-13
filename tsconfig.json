@@ -3,10 +3,13 @@
     "outDir": "target",
     "sourceMap": true,
     "inlineSources": true,
-    "module": "commonjs",
-    "target": "es2015",
+    "module": "es2015",
+    "target": "es5",
     "lib": [
-      "es6"
+      "es6",
+      "es2015",
+      "es2015.promise",
+      "dom"
     ],
     "noImplicitAny": true,
     "strict": true,
