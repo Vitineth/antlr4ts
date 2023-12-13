@@ -18,7 +18,7 @@ import { PredictionContextCache } from "./PredictionContextCache";
 import { Recognizer } from "../Recognizer";
 import { SemanticContext } from "./SemanticContext";
 
-import * as assert from "assert";
+import assert from "../misc/Assertions";
 
 /**
  * This field stores the bit mask for implementing the

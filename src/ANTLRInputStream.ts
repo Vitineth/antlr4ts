@@ -4,12 +4,12 @@
  */
 // ConvertTo-TS run at 2016-10-04T11:26:49.0828748-07:00
 
-import * as assert from "assert";
 import { CharStream } from "./CharStream";
 import { Arrays } from "./misc/Arrays";
 import { Override } from "./Decorators";
 import { IntStream } from "./IntStream";
 import { Interval } from "./misc/Interval";
+import assert from "./misc/Assertions";
 
 const READ_BUFFER_SIZE: number = 1024;
 const INITIAL_BUFFER_SIZE: number = 1024;
@@ -53,7 +53,7 @@ export class ANTLRInputStream implements CharStream {
 	@Override
 	public consume(): void {
 		if (this.p >= this.n) {
-			assert(this.LA(1) === IntStream.EOF);
+			assert(this.LA(1) === IntStream.EOF, "Cannot consume EOF");
 			throw new Error("cannot consume EOF");
 		}
 

@@ -23,7 +23,7 @@ import { RewriterLexer1 } from "./gen/rewriter/RewriterLexer1";
 import { RewriterLexer2 } from "./gen/rewriter/RewriterLexer2";
 import { RewriterLexer3 } from "./gen/rewriter/RewriterLexer3";
 
-import * as assert from "assert";
+import assert from "../../src/misc/Assertions";
 import { suite, test as Test, skip as Ignore } from "@testdeck/mocha";
 
 @suite

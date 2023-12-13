@@ -6,7 +6,7 @@
 import { IntegerList } from "../../src/misc/IntegerList";
 
 import { suite, test } from "@testdeck/mocha";
-import * as assert from "assert";
+import assert from "../../src/misc/Assertions";
 
 @suite
 export class TestIntegerList {

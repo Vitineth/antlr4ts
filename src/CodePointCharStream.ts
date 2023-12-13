@@ -3,7 +3,7 @@
  * Licensed under the BSD-3-Clause license. See LICENSE file in the project root for license information.
  */
 
-import * as assert from "assert";
+import assert from "./misc/Assertions";
 import { CharStream } from "./CharStream";
 import { CodePointBuffer } from "./CodePointBuffer";
 import { IntStream } from "./IntStream";
@@ -29,7 +29,7 @@ export class CodePointCharStream implements CharStream {
 	// construct instances of this type.
 	protected constructor(array: Uint8Array | Uint16Array | Int32Array, position: number, remaining: number, name: string) {
 		// TODO
-		assert(position === 0);
+		assert(position === 0, "Position must start at 0");
 		this._array = array;
 		this._size = remaining;
 		this._name = name;
@@ -76,7 +76,7 @@ export class CodePointCharStream implements CharStream {
 	@Override
 	public consume(): void {
 		if (this._size - this._position === 0) {
-			assert(this.LA(1) === IntStream.EOF);
+			assert(this.LA(1) === IntStream.EOF, "Cannot consume EOF");
 			throw new RangeError("cannot consume EOF");
 		}
 

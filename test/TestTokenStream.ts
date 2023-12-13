@@ -10,7 +10,7 @@ import { XPathLexer } from "../src/tree/xpath/XPathLexer";
 
 import { suite, test } from "@testdeck/mocha";
 
-import * as assert from "assert";
+import assert from "../src/misc/Assertions";
 
 /**
  * This class contains tests for specific API functionality in `TokenStream` and derived types.

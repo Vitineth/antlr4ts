@@ -7,7 +7,7 @@ import { MurmurHash } from "../src/misc/MurmurHash";
 
 import { suite, test } from "@testdeck/mocha";
 
-import * as assert from "assert";
+import assert from "../src/misc/Assertions";
 
 @suite
 export class TestMurmurHash {

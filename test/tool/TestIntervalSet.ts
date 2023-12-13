@@ -10,7 +10,7 @@ import { Lexer } from "../../src/Lexer";
 import { Token } from "../../src/Token";
 
 import { suite, test as Test } from "@testdeck/mocha";
-import * as assert from "assert";
+import assert from "../../src/misc/Assertions";
 
 function assertEquals<T>(expected: T, actual: T): void {
 	assert.strictEqual(actual, expected);

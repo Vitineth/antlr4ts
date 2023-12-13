@@ -50,7 +50,7 @@ import { TransitionType } from "./TransitionType";
 import { Vocabulary } from "../Vocabulary";
 import { VocabularyImpl } from "../VocabularyImpl";
 
-import * as assert from "assert";
+import assert from "../misc/Assertions";
 
 const MAX_SHORT_VALUE = 0xFFFF;
 const MIN_INTEGER_VALUE = -((1 << 31) >>> 0);
@@ -493,6 +493,9 @@ export class ParserATNSimulator extends ATNSimulator {
 					}
 
 					assert(remainingOuterContext != null);
+					if (remainingOuterContext == null) {
+						throw new Error();
+					}
 					remainingOuterContext = remainingOuterContext.parent;
 					s = next;
 				}
@@ -995,6 +998,9 @@ export class ParserATNSimulator extends ATNSimulator {
 				}
 
 				assert(remainingGlobalContext != null);
+				if (remainingGlobalContext == null) {
+					throw new Error();
+				}
 				remainingGlobalContext = remainingGlobalContext.parent;
 				s = next;
 			}

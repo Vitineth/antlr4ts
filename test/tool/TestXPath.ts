@@ -19,7 +19,7 @@ import { XPath } from "../../src/tree/xpath/XPath";
 import { TestXPathLexer } from "./gen/xpath/TestXPathLexer";
 import { TestXPathParser } from "./gen/xpath/TestXPathParser";
 
-import * as assert from "assert";
+import assert from "../../src/misc/Assertions";
 import { suite, test as Test, skip as Ignore } from "@testdeck/mocha";
 
 const SAMPLE_PROGRAM: string =

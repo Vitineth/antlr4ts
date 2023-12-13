@@ -7,7 +7,7 @@ import {Equatable} from "../src/misc/Stubs";
 import {Array2DHashSet} from "../src/misc/Array2DHashSet";
 import {MurmurHash} from "../src/misc/MurmurHash";
 import { suite, test } from "@testdeck/mocha";
-import * as assert from "assert";
+import assert from "../src/misc/Assertions";
 
 class EquatableTest implements Equatable {
 

@@ -5,8 +5,7 @@
 
 // ConvertTo-TS run at 2016-10-04T11:27:11.1463816-07:00
 
-import * as assert from "assert";
-import assertEquals = assert.strictEqual;
+import assert, {strictEqual as assertEquals} from "../../src/misc/Assertions";
 import { test as Test, suite } from "@testdeck/mocha";
 
 import { PredictionContext } from "../../src/atn/PredictionContext";

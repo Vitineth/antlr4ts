@@ -20,7 +20,7 @@ import { Recognizer } from "../Recognizer";
 import { RuleContext } from "../RuleContext";
 import { RuleTransition } from "./RuleTransition";
 
-import * as assert from "assert";
+import assert from "../misc/Assertions";
 
 const INITIAL_HASH: number = 1;
 
