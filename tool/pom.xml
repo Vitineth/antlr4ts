@@ -1,4 +1,4 @@
-<!-- 
+<!--
 Copyright 2016 The ANTLR Project. All rights reserved.
 Licensed under the BSD-3-Clause license. See LICENSE file in the project root for license information.
 -->
@@ -56,8 +56,6 @@ Licensed under the BSD-3-Clause license. See LICENSE file in the project root fo
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java6.home>${env.JAVA6_HOME}</java6.home>
-        <bootclasspath.java6>${java6.home}/lib/rt.jar</bootclasspath.java6>
         <bootclasspath.compile>${bootclasspath.java6}</bootclasspath.compile>
         <bootclasspath.testCompile>${bootclasspath.java6}</bootclasspath.testCompile>
     </properties>
@@ -185,8 +183,8 @@ Licensed under the BSD-3-Clause license. See LICENSE file in the project root fo
                     <execution>
                         <id>default-compile</id>
                         <configuration>
-                            <source>1.6</source>
-                            <target>1.6</target>
+                            <source>17</source>
+                            <target>17</target>
                             <compilerArgs>
                                 <arg>-Xlint</arg>
                                 <arg>-Xlint:-serial</arg>
@@ -196,8 +194,8 @@ Licensed under the BSD-3-Clause license. See LICENSE file in the project root fo
                     <execution>
                         <id>default-testCompile</id>
                         <configuration>
-                            <source>1.6</source>
-                            <target>1.6</target>
+                            <source>17</source>
+                            <target>17</target>
                             <compilerArgs>
                                 <arg>-Xlint</arg>
                                 <arg>-Xlint:-serial</arg>
@@ -274,7 +272,7 @@ Licensed under the BSD-3-Clause license. See LICENSE file in the project root fo
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>2.3</version>
+                <version>3.5.1</version>
                 <inherited>false</inherited>
                 <executions>
                     <execution>
