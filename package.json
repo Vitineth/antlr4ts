@@ -5,7 +5,7 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "postinstall": "tsc --outdir ./target",
+    "postinstall": "tsc --version && tsc --outdir ./target",
     "prepare": "npm run tsc",
     "tsc": "tsc",
     "tsc-watch": "tsc -w -p ."
