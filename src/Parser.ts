@@ -863,7 +863,7 @@ export abstract class Parser extends Recognizer<Token, ParserATNSimulator> {
 					console.log();
 				}
 				console.log("Decision " + dfa.decision + ":");
-				process.stdout.write(dfa.toString(this.vocabulary, this.ruleNames));
+				console.log(dfa.toString(this.vocabulary, this.ruleNames));
 				seenOne = true;
 			}
 		}

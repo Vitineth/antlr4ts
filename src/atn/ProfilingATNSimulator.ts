@@ -86,17 +86,12 @@ export class ProfilingATNSimulator extends ParserATNSimulator {
 			this.currentDecision = decision;
 			this.currentState = undefined;
 			this.conflictingAltResolvedBySLL = ATN.INVALID_ALT_NUMBER;
-			let start: number[] = process.hrtime();
+			let start = performance.now();
 			let alt: number = super.adaptivePredict(input, decision, outerContext);
-			let stop: number[] = process.hrtime();
+			let stop = performance.now();
 
-			let nanoseconds: number = (stop[0] - start[0]) * 1000000000;
-			if (nanoseconds === 0) {
-				nanoseconds = stop[1] - start[1];
-			} else {
-				// Add nanoseconds from start to end of that second, plus start of the end second to end
-				nanoseconds += (1000000000 - start[1]) + stop[1];
-			}
+			let milliseconds = stop - start;
+			let nanoseconds = milliseconds * 1e+6;
 
 			this.decisions[decision].timeInPrediction += nanoseconds;
 			this.decisions[decision].invocations++;
