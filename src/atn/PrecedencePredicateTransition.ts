@@ -7,7 +7,7 @@
 
 import { AbstractPredicateTransition } from "./AbstractPredicateTransition";
 import { ATNState } from "./ATNState";
-import { NotNull, Override } from "../Decorators";
+import { Override } from "../Decorators";
 import { SemanticContext } from "./SemanticContext";
 import { TransitionType } from "./TransitionType";
 
@@ -18,7 +18,7 @@ import { TransitionType } from "./TransitionType";
 export class PrecedencePredicateTransition extends AbstractPredicateTransition {
 	public precedence: number;
 
-	constructor( @NotNull target: ATNState, precedence: number) {
+	constructor( target: ATNState, precedence: number) {
 		super(target);
 		this.precedence = precedence;
 	}

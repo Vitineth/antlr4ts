@@ -10,7 +10,7 @@ import { ArrayEqualityComparator } from "../misc/ArrayEqualityComparator";
 import { Comparable } from "../misc/Stubs";
 import { Equatable } from "../misc/Stubs";
 import { MurmurHash } from "../misc/MurmurHash";
-import { NotNull, Override } from "../Decorators";
+import { Override } from "../Decorators";
 import { ObjectEqualityComparator } from "../misc/ObjectEqualityComparator";
 import { Recognizer } from "../Recognizer";
 import { RuleContext } from "../RuleContext";
@@ -305,7 +305,7 @@ export namespace SemanticContext {
 	export class AND extends Operator {
 		public opnds: SemanticContext[];
 
-		constructor(@NotNull a: SemanticContext, @NotNull b: SemanticContext) {
+		constructor(a: SemanticContext, b: SemanticContext) {
 			super();
 
 			let operands: Array2DHashSet<SemanticContext> = new Array2DHashSet<SemanticContext>(ObjectEqualityComparator.INSTANCE);
@@ -416,7 +416,7 @@ export namespace SemanticContext {
 	export class OR extends Operator {
 		public opnds: SemanticContext[];
 
-		constructor(@NotNull a: SemanticContext, @NotNull b: SemanticContext) {
+		constructor(a: SemanticContext, b: SemanticContext) {
 			super();
 
 			let operands: Array2DHashSet<SemanticContext> = new Array2DHashSet<SemanticContext>(ObjectEqualityComparator.INSTANCE);

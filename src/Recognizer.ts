@@ -13,7 +13,7 @@ import { ParseInfo } from "./atn/ParseInfo";
 import { ProxyErrorListener } from "./ProxyErrorListener";
 import { RecognitionException } from "./RecognitionException";
 import { RuleContext } from "./RuleContext";
-import { SuppressWarnings, NotNull } from "./Decorators";
+import { SuppressWarnings } from "./Decorators";
 import { Token } from "./Token";
 import { Vocabulary } from "./Vocabulary";
 import { VocabularyImpl } from "./VocabularyImpl";
@@ -29,7 +29,6 @@ export abstract class Recognizer<TSymbol, ATNInterpreter extends ATNSimulator> {
 		new WeakMap<string[], ReadonlyMap<string, number>>();
 
 	@SuppressWarnings("serial")
-	@NotNull
 	private readonly _listeners: Array<ANTLRErrorListener<TSymbol>> = [ConsoleErrorListener.INSTANCE];
 
 	protected _interp!: ATNInterpreter;
@@ -51,7 +50,6 @@ export abstract class Recognizer<TSymbol, ATNInterpreter extends ATNSimulator> {
 	 *
 	 * Used for XPath and tree pattern compilation.
 	 */
-	@NotNull
 	public getTokenTypeMap(): ReadonlyMap<string, number> {
 		let vocabulary: Vocabulary = this.vocabulary;
 		let result = Recognizer.tokenTypeMapCache.get(vocabulary);
@@ -82,7 +80,6 @@ export abstract class Recognizer<TSymbol, ATNInterpreter extends ATNSimulator> {
 	 *
 	 * Used for XPath and tree pattern compilation.
 	 */
-	@NotNull
 	public getRuleIndexMap(): ReadonlyMap<string, number> {
 		let ruleNames: string[] = this.ruleNames;
 		if (ruleNames == null) {
@@ -113,7 +110,6 @@ export abstract class Recognizer<TSymbol, ATNInterpreter extends ATNSimulator> {
 	 * For interpreters, we don't know their serialized ATN despite having
 	 * created the interpreter from it.
 	 */
-	@NotNull
 	get serializedATN(): string {
 		throw new Error("there is no serialized ATN");
 	}
@@ -128,7 +124,6 @@ export abstract class Recognizer<TSymbol, ATNInterpreter extends ATNSimulator> {
 	 *
 	 * @returns The {@link ATN} used by the recognizer for prediction.
 	 */
-	@NotNull
 	get atn(): ATN {
 		return this._interp.atn;
 	}
@@ -138,7 +133,6 @@ export abstract class Recognizer<TSymbol, ATNInterpreter extends ATNSimulator> {
 	 *
 	 * @returns The ATN interpreter used by the recognizer for prediction.
 	 */
-	@NotNull
 	get interpreter(): ATNInterpreter {
 		return this._interp;
 	}
@@ -149,7 +143,7 @@ export abstract class Recognizer<TSymbol, ATNInterpreter extends ATNSimulator> {
 	 * @param interpreter The ATN interpreter used by the recognizer for
 	 * prediction.
 	 */
-	set interpreter(@NotNull interpreter: ATNInterpreter) {
+	set interpreter(interpreter: ATNInterpreter) {
 		this._interp = interpreter;
 	}
 
@@ -163,8 +157,7 @@ export abstract class Recognizer<TSymbol, ATNInterpreter extends ATNSimulator> {
 	}
 
 	/** What is the error header, normally line/character position information? */
-	@NotNull
-	public getErrorHeader(@NotNull e: RecognitionException): string {
+	public getErrorHeader(e: RecognitionException): string {
 		let token = e.getOffendingToken();
 		if (!token) {
 			return "";
@@ -177,14 +170,14 @@ export abstract class Recognizer<TSymbol, ATNInterpreter extends ATNSimulator> {
 	/**
 	 * @exception NullPointerException if `listener` is `undefined`.
 	 */
-	public addErrorListener(@NotNull listener: ANTLRErrorListener<TSymbol>): void {
+	public addErrorListener(listener: ANTLRErrorListener<TSymbol>): void {
 		if (!listener) {
 			throw new TypeError("listener must not be null");
 		}
 		this._listeners.push(listener);
 	}
 
-	public removeErrorListener(@NotNull listener: ANTLRErrorListener<TSymbol>): void {
+	public removeErrorListener(listener: ANTLRErrorListener<TSymbol>): void {
 		let position = this._listeners.indexOf(listener);
 		if (position !== -1) {
 			this._listeners.splice(position, 1);
@@ -195,7 +188,6 @@ export abstract class Recognizer<TSymbol, ATNInterpreter extends ATNSimulator> {
 		this._listeners.length = 0;
 	}
 
-	@NotNull
 	public getErrorListeners(): Array<ANTLRErrorListener<TSymbol>> {
 		return this._listeners.slice(0);
 	}

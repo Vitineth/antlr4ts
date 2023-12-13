@@ -6,7 +6,7 @@
 // ConvertTo-TS run at 2016-10-04T11:26:50.3953157-07:00
 
 import { BufferedTokenStream } from "./BufferedTokenStream";
-import { NotNull, Override } from "./Decorators";
+import { Override } from "./Decorators";
 import { Token } from "./Token";
 import { TokenSource } from "./TokenSource";
 
@@ -49,7 +49,7 @@ export class CommonTokenStream extends BufferedTokenStream {
 	 * @param tokenSource The token source.
 	 * @param channel The channel to use for filtering tokens.
 	 */
-	constructor(@NotNull tokenSource: TokenSource, channel: number = Token.DEFAULT_CHANNEL) {
+	constructor(tokenSource: TokenSource, channel: number = Token.DEFAULT_CHANNEL) {
 		super(tokenSource);
 		this.channel = channel;
 	}

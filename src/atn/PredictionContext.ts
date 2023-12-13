@@ -13,7 +13,7 @@ import { ATN } from "./ATN";
 import { ATNState } from "./ATNState";
 import { EqualityComparator } from "../misc/EqualityComparator";
 import { MurmurHash } from "../misc/MurmurHash";
-import { NotNull, Override } from "../Decorators";
+import { Override } from "../Decorators";
 import { Equatable, JavaSet } from "../misc/Stubs";
 import { PredictionContextCache } from "./PredictionContextCache";
 import { Recognizer } from "../Recognizer";
@@ -119,7 +119,7 @@ export abstract class PredictionContext implements Equatable {
 		return context.removeEmptyContext();
 	}
 
-	public static join(@NotNull context0: PredictionContext, @NotNull context1: PredictionContext, @NotNull contextCache: PredictionContextCache = PredictionContextCache.UNCACHED): PredictionContext {
+	public static join(context0: PredictionContext, context1: PredictionContext, contextCache: PredictionContextCache = PredictionContextCache.UNCACHED): PredictionContext {
 		if (context0 === context1) {
 			return context0;
 		}
@@ -216,9 +216,9 @@ export abstract class PredictionContext implements Equatable {
 	}
 
 	public static getCachedContext(
-		@NotNull context: PredictionContext,
-		@NotNull contextCache: Array2DHashMap<PredictionContext, PredictionContext>,
-		@NotNull visited: PredictionContext.IdentityHashMap): PredictionContext {
+		context: PredictionContext,
+		contextCache: Array2DHashMap<PredictionContext, PredictionContext>,
+		visited: PredictionContext.IdentityHashMap): PredictionContext {
 		if (context.isEmpty) {
 			return context;
 		}
@@ -441,13 +441,11 @@ class EmptyPredictionContext extends PredictionContext {
 }
 
 class ArrayPredictionContext extends PredictionContext {
-	@NotNull
 	public parents: PredictionContext[];
 
-	@NotNull
 	public returnStates: number[];
 
-	constructor( @NotNull parents: PredictionContext[], returnStates: number[], hashCode?: number) {
+	constructor( parents: PredictionContext[], returnStates: number[], hashCode?: number) {
 		super(hashCode || PredictionContext.calculateHashCode(parents, returnStates));
 		assert(parents.length === returnStates.length);
 		assert(returnStates.length > 1 || returnStates[0] !== PredictionContext.EMPTY_FULL_STATE_KEY, "Should be using PredictionContext.EMPTY instead.");
@@ -646,11 +644,10 @@ class ArrayPredictionContext extends PredictionContext {
 
 export class SingletonPredictionContext extends PredictionContext {
 
-	@NotNull
 	public parent: PredictionContext;
 	public returnState: number;
 
-	constructor(@NotNull parent: PredictionContext, returnState: number) {
+	constructor(parent: PredictionContext, returnState: number) {
 		super(PredictionContext.calculateSingleHashCode(parent, returnState));
 		// assert(returnState != PredictionContext.EMPTY_FULL_STATE_KEY && returnState != PredictionContext.EMPTY_LOCAL_STATE_KEY);
 		this.parent = parent;

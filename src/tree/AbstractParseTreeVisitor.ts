@@ -6,7 +6,7 @@
 // ConvertTo-TS run at 2016-10-04T11:26:47.3092279-07:00
 
 import { ErrorNode } from "./ErrorNode";
-import { NotNull, Override } from "../Decorators";
+import { Override } from "../Decorators";
 import { ParseTree } from "./ParseTree";
 import { ParseTreeVisitor } from "./ParseTreeVisitor";
 import { RuleNode } from "./RuleNode";
@@ -20,7 +20,7 @@ export abstract class AbstractParseTreeVisitor<Result> implements ParseTreeVisit
 	 * specified tree.
 	 */
 	@Override
-	public visit(@NotNull tree: ParseTree): Result {
+	public visit(tree: ParseTree): Result {
 		return tree.accept(this);
 	}
 
@@ -40,7 +40,7 @@ export abstract class AbstractParseTreeVisitor<Result> implements ParseTreeVisit
 	 * method to behave properly in respect to the specific algorithm in use.
 	 */
 	@Override
-	public visitChildren(@NotNull node: RuleNode): Result {
+	public visitChildren(node: RuleNode): Result {
 		let result: Result = this.defaultResult();
 		let n: number = node.childCount;
 		for (let i = 0; i < n; i++) {
@@ -63,7 +63,7 @@ export abstract class AbstractParseTreeVisitor<Result> implements ParseTreeVisit
 	 * {@link #defaultResult defaultResult}.
 	 */
 	@Override
-	public visitTerminal(@NotNull node: TerminalNode): Result {
+	public visitTerminal(node: TerminalNode): Result {
 		return this.defaultResult();
 	}
 
@@ -74,7 +74,7 @@ export abstract class AbstractParseTreeVisitor<Result> implements ParseTreeVisit
 	 * {@link #defaultResult defaultResult}.
 	 */
 	@Override
-	public visitErrorNode(@NotNull node: ErrorNode): Result {
+	public visitErrorNode(node: ErrorNode): Result {
 		return this.defaultResult();
 	}
 
@@ -136,7 +136,7 @@ export abstract class AbstractParseTreeVisitor<Result> implements ParseTreeVisit
 	 * `false` to stop visiting children and immediately return the
 	 * current aggregate result from {@link #visitChildren}.
 	 */
-	protected shouldVisitNextChild(@NotNull node: RuleNode, currentResult: Result): boolean {
+	protected shouldVisitNextChild(node: RuleNode, currentResult: Result): boolean {
 		return true;
 	}
 }

@@ -10,7 +10,7 @@ import { ATNSimulator } from "../atn/ATNSimulator";
 import { ATNState } from "../atn/ATNState";
 import { DFA } from "./DFA";
 import { DFAState } from "./DFAState";
-import { NotNull, Override } from "../Decorators";
+import { Override } from "../Decorators";
 import { PredictionContext } from "../atn/PredictionContext";
 import { Recognizer } from "../Recognizer";
 import { Vocabulary } from "../Vocabulary";
@@ -18,9 +18,7 @@ import { VocabularyImpl } from "../VocabularyImpl";
 
 /** A DFA walker that knows how to dump them to serialized strings. */
 export class DFASerializer {
-	@NotNull
 	private dfa: DFA;
-	@NotNull
 	private vocabulary: Vocabulary;
 
 	public ruleNames?: string[];

@@ -35,7 +35,7 @@ import { LexerPushModeAction } from "./LexerPushModeAction";
 import { LexerSkipAction } from "./LexerSkipAction";
 import { LexerTypeAction } from "./LexerTypeAction";
 import { LoopEndState } from "./LoopEndState";
-import { NotNull } from "../Decorators";
+
 import { NotSetTransition } from "./NotSetTransition";
 import { ParserATNSimulator } from "./ParserATNSimulator";
 import { PlusBlockStartState } from "./PlusBlockStartState";
@@ -118,7 +118,6 @@ export class ATNDeserializer {
 	 */
 	private static readonly SERIALIZED_UUID: UUID = ATNDeserializer.ADDED_UNICODE_SMP;
 
-	@NotNull
 	private readonly deserializationOptions: ATNDeserializationOptions;
 
 	constructor(deserializationOptions?: ATNDeserializationOptions) {
@@ -169,7 +168,7 @@ export class ATNDeserializer {
 		}
 	}
 
-	public deserialize(@NotNull data: Uint16Array): ATN {
+	public deserialize(data: Uint16Array): ATN {
 		data = data.slice(0);
 
 		// Each Uint16 value in data is shifted by +2 at the entry to this method. This is an encoding optimization
@@ -648,7 +647,7 @@ export class ATNDeserializer {
 	 *
 	 * @param atn The ATN.
 	 */
-	protected markPrecedenceDecisions(@NotNull atn: ATN): void {
+	protected markPrecedenceDecisions(atn: ATN): void {
 		// Map rule index -> precedence decision for that rule
 		let rulePrecedenceDecisions = new Map<number, StarLoopEntryState>();
 
@@ -1137,9 +1136,8 @@ export class ATNDeserializer {
 		return new UUID(mostSigBits, moreSigBits, lessSigBits, leastSigBits);
 	}
 
-	@NotNull
 	protected edgeFactory(
-		@NotNull atn: ATN,
+		atn: ATN,
 		type: TransitionType, src: number, trg: number,
 		arg1: number, arg2: number, arg3: number,
 		sets: IntervalSet[]): Transition {

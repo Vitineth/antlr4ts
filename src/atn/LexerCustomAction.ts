@@ -9,7 +9,7 @@ import { Lexer } from "../Lexer";
 import { LexerAction } from "./LexerAction";
 import { LexerActionType } from "./LexerActionType";
 import { MurmurHash } from "../misc/MurmurHash";
-import { NotNull, Override } from "../Decorators";
+import { Override } from "../Decorators";
 
 /**
  * Executes a custom lexer action by calling {@link Recognizer#action} with the
@@ -93,7 +93,7 @@ export class LexerCustomAction implements LexerAction {
 	 * appropriate rule and action indexes.
 	 */
 	@Override
-	public execute(@NotNull lexer: Lexer): void {
+	public execute(lexer: Lexer): void {
 		lexer.action(undefined, this._ruleIndex, this._actionIndex);
 	}
 

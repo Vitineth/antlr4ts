@@ -12,7 +12,6 @@ import { CommonTokenStream } from "../../CommonTokenStream";
 import { Lexer } from "../../Lexer";
 import { ListTokenSource } from "../../ListTokenSource";
 import { MultiMap } from "../../misc/MultiMap";
-import { NotNull } from "../../Decorators";
 import { ParseCancellationException } from "../../misc/ParseCancellationException";
 import { Parser } from "../../Parser";
 import { ParserInterpreter } from "../../ParserInterpreter";
@@ -180,8 +179,7 @@ export class ParseTreePatternMatcher {
 	public match(tree: ParseTree, pattern: ParseTreePattern): ParseTreeMatch;
 
 	// Implementation of match
-	@NotNull
-	public match(tree: ParseTree, @NotNull pattern: string | ParseTreePattern, patternRuleIndex: number = 0): ParseTreeMatch {
+	public match(tree: ParseTree, pattern: string | ParseTreePattern, patternRuleIndex: number = 0): ParseTreeMatch {
 		if (typeof pattern === "string") {
 			let p: ParseTreePattern = this.compile(pattern, patternRuleIndex);
 			return this.match(tree, p);
@@ -238,7 +236,6 @@ export class ParseTreePatternMatcher {
 	 * Used to convert the tree pattern string into a series of tokens. The
 	 * input stream is reset.
 	 */
-	@NotNull
 	get lexer(): Lexer {
 		return this._lexer;
 	}
@@ -247,7 +244,6 @@ export class ParseTreePatternMatcher {
 	 * Used to collect to the grammar file name, token names, rule names for
 	 * used to parse the pattern into a parse tree.
 	 */
-	@NotNull
 	get parser(): Parser {
 		return this._parser;
 	}
@@ -264,9 +260,9 @@ export class ParseTreePatternMatcher {
 	 * algorithm used by the implementation, and may be overridden.
 	 */
 	protected matchImpl(
-		@NotNull tree: ParseTree,
-		@NotNull patternTree: ParseTree,
-		@NotNull labels: MultiMap<string, ParseTree>): ParseTree | undefined {
+		tree: ParseTree,
+		patternTree: ParseTree,
+		labels: MultiMap<string, ParseTree>): ParseTree | undefined {
 		if (!tree) {
 			throw new TypeError("tree cannot be null");
 		}

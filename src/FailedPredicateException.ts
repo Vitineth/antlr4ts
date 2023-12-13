@@ -11,7 +11,6 @@ import { ATNState } from "./atn/ATNState";
 import { Parser } from "./Parser";
 import { RecognitionException } from "./RecognitionException";
 import { Recognizer } from "./Recognizer";
-import { NotNull } from "./Decorators";
 import { PredicateTransition } from "./atn/PredicateTransition";
 
 /** A semantic predicate failed during validation.  Validation of predicates
@@ -26,7 +25,7 @@ export class FailedPredicateException extends RecognitionException {
 	private _predicateIndex: number;
 	private _predicate?: string;
 
-	constructor(@NotNull recognizer: Parser, predicate?: string, message?: string) {
+	constructor(recognizer: Parser, predicate?: string, message?: string) {
 		super(
 			recognizer,
 			recognizer.inputStream,
@@ -60,7 +59,6 @@ export class FailedPredicateException extends RecognitionException {
 		return this._predicate;
 	}
 
-	@NotNull
 	private static formatMessage(predicate: string | undefined, message: string | undefined): string {
 		if (message) {
 			return message;

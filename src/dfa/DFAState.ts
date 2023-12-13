@@ -11,7 +11,7 @@ import { ATNConfigSet } from "../atn/ATNConfigSet";
 import { BitSet } from "../misc/BitSet";
 import { LexerActionExecutor } from "../atn/LexerActionExecutor";
 import { MurmurHash } from "../misc/MurmurHash";
-import { NotNull, Override } from "../Decorators";
+import { Override } from "../Decorators";
 import { PredictionContext } from "../atn/PredictionContext";
 import { SemanticContext } from "../atn/SemanticContext";
 
@@ -44,18 +44,15 @@ import assert from "../misc/Assertions";
 export class DFAState {
 	public stateNumber: number = -1;
 
-	@NotNull
 	public configs: ATNConfigSet;
 
 	/** `edges.get(symbol)` points to target of symbol.
 	 */
-	@NotNull
 	private readonly edges: Map<number, DFAState>;
 
 	private _acceptStateInfo: AcceptStateInfo | undefined;
 
 	/** These keys for these edges are the top level element of the global context. */
-	@NotNull
 	private readonly contextEdges: Map<number, DFAState>;
 
 	/** Symbols in this set require a global context transition before matching an input symbol. */
@@ -241,10 +238,9 @@ export class DFAState {
 export namespace DFAState {
 	/** Map a predicate to a predicted alternative. */
 	export class PredPrediction {
-		@NotNull
 		public pred: SemanticContext;  // never null; at least SemanticContext.NONE
 		public alt: number;
-		constructor(@NotNull pred: SemanticContext, alt: number) {
+		constructor(pred: SemanticContext, alt: number) {
 			this.alt = alt;
 			this.pred = pred;
 		}

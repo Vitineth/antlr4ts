@@ -11,7 +11,7 @@ import { Interval } from "./Interval";
 import { IntSet } from "./IntSet";
 import { Lexer } from "../Lexer";
 import { MurmurHash } from "./MurmurHash";
-import { Override, NotNull } from "../Decorators";
+import { Override } from "../Decorators";
 import { Token } from "../Token";
 import { Vocabulary } from "../Vocabulary";
 
@@ -64,7 +64,6 @@ export class IntervalSet implements IntSet {
 	 * Create a set with all ints within range [a..b] (inclusive). If b is omitted, the set contains the single element
 	 * a.
 	 */
-	@NotNull
 	public static of(a: number, b: number = a): IntervalSet {
 		let s: IntervalSet = new IntervalSet();
 		s.add(a, b);
@@ -225,7 +224,6 @@ export class IntervalSet implements IntSet {
 	 * Compute the set difference between two interval sets. The specific
 	 * operation is `left - right`.
 	 */
-	@NotNull
 	public static subtract(left: IntervalSet, right: IntervalSet): IntervalSet {
 		if (left.isNil) {
 			return new IntervalSet();
@@ -521,7 +519,7 @@ export class IntervalSet implements IntSet {
 		return buf;
 	}
 
-	public toStringVocabulary( @NotNull vocabulary: Vocabulary): string {
+	public toStringVocabulary( vocabulary: Vocabulary): string {
 		if (this._intervals == null || this._intervals.length === 0) {
 			return "{}";
 		}
@@ -561,8 +559,7 @@ export class IntervalSet implements IntSet {
 		return buf;
 	}
 
-	@NotNull
-	protected elementName( @NotNull vocabulary: Vocabulary, a: number): string {
+	protected elementName( vocabulary: Vocabulary, a: number): string {
 		if (a === Token.EOF) {
 			return "<EOF>";
 		} else if (a === Token.EPSILON) {

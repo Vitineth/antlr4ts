@@ -14,7 +14,7 @@ import { IntervalSet } from "../misc/IntervalSet";
 import { InvalidState } from "./InvalidState";
 import { LexerAction } from "./LexerAction";
 import { LL1Analyzer } from "./LL1Analyzer";
-import { NotNull } from "../Decorators";
+
 import { ObjectEqualityComparator } from "../misc/ObjectEqualityComparator";
 import { PredictionContext } from "./PredictionContext";
 import { RuleContext } from "../RuleContext";
@@ -28,14 +28,12 @@ import assert from "../misc/Assertions";
 
 /** */
 export class ATN {
-	@NotNull
 	public readonly states: ATNState[] = [];
 
 	/** Each subrule/rule is a decision point and we must track them so we
 	 *  can go back later and build DFA predictors for them.  This includes
 	 *  all the rules, subrules, optional blocks, ()+, ()* etc...
 	 */
-	@NotNull
 	public decisionToState: DecisionState[] = [];
 
 	/**
@@ -48,7 +46,6 @@ export class ATN {
 	 */
 	public ruleToStopState!: RuleStopState[];
 
-	@NotNull
 	public modeNameToStartState: Map<string, TokensStartState> =
 		new Map<string, TokensStartState>();
 
@@ -77,21 +74,18 @@ export class ATN {
 	 */
 	public lexerActions!: LexerAction[];
 
-	@NotNull
 	public modeToStartState: TokensStartState[] = [];
 
 	private contextCache: Array2DHashMap<PredictionContext, PredictionContext> =
 		new Array2DHashMap<PredictionContext, PredictionContext>(ObjectEqualityComparator.INSTANCE);
 
-	@NotNull
 	public decisionToDFA: DFA[] = [];
-	@NotNull
 	public modeToDFA: DFA[] = [];
 
 	public LL1Table: Map<number, number> = new Map<number, number>();
 
 	/** Used for runtime deserialization of ATNs from strings */
-	constructor(@NotNull grammarType: ATNType, maxTokenType: number) {
+	constructor(grammarType: ATNType, maxTokenType: number) {
 		this.grammarType = grammarType;
 		this.maxTokenType = maxTokenType;
 	}
@@ -140,7 +134,6 @@ export class ATN {
 	// @NotNull
 	public nextTokens(/*@NotNull*/ s: ATNState): IntervalSet;
 
-	@NotNull
 	public nextTokens(s: ATNState, ctx?: PredictionContext): IntervalSet {
 		if (ctx) {
 			let anal: LL1Analyzer = new LL1Analyzer(this);
@@ -163,7 +156,7 @@ export class ATN {
 		this.states.push(state);
 	}
 
-	public removeState(@NotNull state: ATNState): void {
+	public removeState(state: ATNState): void {
 		// just replace the state, don't shift states in list
 		let invalidState = new InvalidState();
 		invalidState.atn = this;
@@ -171,14 +164,14 @@ export class ATN {
 		this.states[state.stateNumber] = invalidState;
 	}
 
-	public defineMode(@NotNull name: string, @NotNull s: TokensStartState): void {
+	public defineMode(name: string, s: TokensStartState): void {
 		this.modeNameToStartState.set(name, s);
 		this.modeToStartState.push(s);
 		this.modeToDFA.push(new DFA(s));
 		this.defineDecisionState(s);
 	}
 
-	public defineDecisionState(@NotNull s: DecisionState): number {
+	public defineDecisionState(s: DecisionState): number {
 		this.decisionToState.push(s);
 		s.decision = this.decisionToState.length - 1;
 		this.decisionToDFA.push(new DFA(s, s.decision));
@@ -232,7 +225,6 @@ export class ATN {
 	 * @ if the ATN does not contain a state with
 	 * number `stateNumber`
 	 */
-	@NotNull
 	public getExpectedTokens(stateNumber: number, context: RuleContext | undefined): IntervalSet {
 		if (stateNumber < 0 || stateNumber >= this.states.length) {
 			throw new RangeError("Invalid state number.");

@@ -9,7 +9,7 @@ import assert from "./misc/Assertions";
 import { CommonToken } from "./CommonToken";
 import { Interval } from "./misc/Interval";
 import { Lexer } from "./Lexer";
-import { NotNull, Override } from "./Decorators";
+import { Override } from "./Decorators";
 import { RuleContext } from "./RuleContext";
 import { Token } from "./Token";
 import { TokenSource } from "./TokenSource";
@@ -31,7 +31,6 @@ export class BufferedTokenStream implements TokenStream {
 	/**
 	 * The {@link TokenSource} from which tokens for this stream are fetched.
 	 */
-	@NotNull
 	private _tokenSource: TokenSource;
 
 	/**
@@ -67,7 +66,7 @@ export class BufferedTokenStream implements TokenStream {
 	 */
 	protected fetchedEOF: boolean = false;
 
-	constructor(@NotNull tokenSource: TokenSource) {
+	constructor(tokenSource: TokenSource) {
 		if (tokenSource == null) {
 			throw new Error("tokenSource cannot be null");
 		}
@@ -234,7 +233,6 @@ export class BufferedTokenStream implements TokenStream {
 		return this.tokens[this.p - k];
 	}
 
-	@NotNull
 	@Override
 	public LT(k: number): Token {
 		let result = this.tryLT(k);
@@ -471,7 +469,6 @@ export class BufferedTokenStream implements TokenStream {
 	public getText(): string;
 	public getText(interval: Interval): string;
 	public getText(context: RuleContext): string;
-	@NotNull
 	@Override
 	public getText(interval?: Interval | RuleContext): string {
 		if (interval === undefined) {
@@ -505,7 +502,6 @@ export class BufferedTokenStream implements TokenStream {
 		return buf.toString();
 	}
 
-	@NotNull
 	@Override
 	public getTextFromRange(start: any, stop: any): string {
 		if (this.isToken(start) && this.isToken(stop)) {

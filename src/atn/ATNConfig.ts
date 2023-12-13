@@ -11,7 +11,7 @@ import { DecisionState } from "./DecisionState";
 import { Equatable } from "../misc/Stubs";
 import { LexerActionExecutor } from "./LexerActionExecutor";
 import { MurmurHash } from "../misc/MurmurHash";
-import { NotNull, Override } from "../Decorators";
+import { Override } from "../Decorators";
 import { ObjectEqualityComparator } from "../misc/ObjectEqualityComparator";
 import { PredictionContext } from "./PredictionContext";
 import { PredictionContextCache } from "./PredictionContextCache";
@@ -58,7 +58,6 @@ const SUPPRESS_PRECEDENCE_FILTER: number = 0x80000000;
  */
 export class ATNConfig implements Equatable {
 	/** The ATN state associated with this configuration */
-	@NotNull
 	private _state: ATNState;
 
 	/**
@@ -74,13 +73,12 @@ export class ATNConfig implements Equatable {
 	 *  with this config.  We track only those contexts pushed during
 	 *  execution of the ATN simulator.
 	 */
-	@NotNull
 	private _context: PredictionContext;
 
 	constructor(/*@NotNull*/ state: ATNState, alt: number, /*@NotNull*/ context: PredictionContext);
 	constructor(/*@NotNull*/ state: ATNState, /*@NotNull*/ c: ATNConfig, /*@NotNull*/ context: PredictionContext);
 
-	constructor(@NotNull state: ATNState, altOrConfig: number | ATNConfig, @NotNull context: PredictionContext) {
+	constructor(state: ATNState, altOrConfig: number | ATNConfig, context: PredictionContext) {
 		if (typeof altOrConfig === "number") {
 			assert((altOrConfig & 0xFFFFFF) === altOrConfig);
 			this._state = state;
@@ -99,7 +97,7 @@ export class ATNConfig implements Equatable {
 
 	public static create(/*@NotNull*/ state: ATNState, alt: number, context: PredictionContext, /*@*/ semanticContext: SemanticContext, lexerActionExecutor: LexerActionExecutor | undefined): ATNConfig;
 
-	public static create(@NotNull state: ATNState, alt: number, context: PredictionContext, @NotNull semanticContext: SemanticContext = SemanticContext.NONE, lexerActionExecutor?: LexerActionExecutor): ATNConfig {
+	public static create(state: ATNState, alt: number, context: PredictionContext, semanticContext: SemanticContext = SemanticContext.NONE, lexerActionExecutor?: LexerActionExecutor): ATNConfig {
 		if (semanticContext !== SemanticContext.NONE) {
 			if (lexerActionExecutor != null) {
 				return new ActionSemanticContextATNConfig(lexerActionExecutor, semanticContext, state, alt, context, false);
@@ -117,7 +115,6 @@ export class ATNConfig implements Equatable {
 	}
 
 	/** Gets the ATN state associated with this configuration */
-	@NotNull
 	get state(): ATNState {
 		return this._state;
 	}
@@ -127,12 +124,11 @@ export class ATNConfig implements Equatable {
 		return this.altAndOuterContextDepth & 0x00FFFFFF;
 	}
 
-	@NotNull
 	get context(): PredictionContext {
 		return this._context;
 	}
 
-	set context(@NotNull context: PredictionContext) {
+	set context(context: PredictionContext) {
 		this._context = context;
 	}
 
@@ -166,7 +162,6 @@ export class ATNConfig implements Equatable {
 		return undefined;
 	}
 
-	@NotNull
 	get semanticContext(): SemanticContext {
 		return SemanticContext.NONE;
 	}
@@ -196,7 +191,7 @@ export class ATNConfig implements Equatable {
 		}
 	}
 
-	private transformImpl(@NotNull state: ATNState, context: PredictionContext, @NotNull semanticContext: SemanticContext, checkNonGreedy: boolean, lexerActionExecutor: LexerActionExecutor | undefined): ATNConfig {
+	private transformImpl(state: ATNState, context: PredictionContext, semanticContext: SemanticContext, checkNonGreedy: boolean, lexerActionExecutor: LexerActionExecutor | undefined): ATNConfig {
 		let passedThroughNonGreedy: boolean = checkNonGreedy && ATNConfig.checkNonGreedyDecision(this, state);
 		if (semanticContext !== SemanticContext.NONE) {
 			if (lexerActionExecutor != null || passedThroughNonGreedy) {
@@ -468,12 +463,11 @@ export class ATNConfig implements Equatable {
  * types.
  */
 class SemanticContextATNConfig extends ATNConfig {
-	@NotNull
 	private _semanticContext: SemanticContext;
 
 	constructor(semanticContext: SemanticContext, /*@NotNull*/ state: ATNState, alt: number, context: PredictionContext);
 	constructor(semanticContext: SemanticContext, /*@NotNull*/ state: ATNState, /*@NotNull*/ c: ATNConfig, context: PredictionContext);
-	constructor(semanticContext: SemanticContext, @NotNull state: ATNState, @NotNull altOrConfig: number | ATNConfig, context: PredictionContext) {
+	constructor(semanticContext: SemanticContext, state: ATNState, altOrConfig: number | ATNConfig, context: PredictionContext) {
 		if (typeof altOrConfig === "number") {
 			super(state, altOrConfig, context);
 		} else {
@@ -503,7 +497,7 @@ class ActionATNConfig extends ATNConfig {
 
 	constructor(lexerActionExecutor: LexerActionExecutor | undefined, /*@NotNull*/ state: ATNState, alt: number, context: PredictionContext, passedThroughNonGreedyDecision: boolean);
 	constructor(lexerActionExecutor: LexerActionExecutor | undefined, /*@NotNull*/ state: ATNState, /*@NotNull*/ c: ATNConfig, context: PredictionContext, passedThroughNonGreedyDecision: boolean);
-	constructor(lexerActionExecutor: LexerActionExecutor | undefined, @NotNull state: ATNState, @NotNull altOrConfig: number | ATNConfig, context: PredictionContext, passedThroughNonGreedyDecision: boolean) {
+	constructor(lexerActionExecutor: LexerActionExecutor | undefined, state: ATNState, altOrConfig: number | ATNConfig, context: PredictionContext, passedThroughNonGreedyDecision: boolean) {
 		if (typeof altOrConfig === "number") {
 			super(state, altOrConfig, context);
 		} else {
@@ -541,7 +535,7 @@ class ActionSemanticContextATNConfig extends SemanticContextATNConfig {
 
 	constructor(lexerActionExecutor: LexerActionExecutor | undefined, /*@NotNull*/ semanticContext: SemanticContext, /*@NotNull*/ state: ATNState, alt: number, context: PredictionContext, passedThroughNonGreedyDecision: boolean);
 	constructor(lexerActionExecutor: LexerActionExecutor | undefined, /*@NotNull*/ semanticContext: SemanticContext, /*@NotNull*/ state: ATNState, /*@NotNull*/ c: ATNConfig, context: PredictionContext, passedThroughNonGreedyDecision: boolean);
-	constructor(lexerActionExecutor: LexerActionExecutor | undefined, @NotNull semanticContext: SemanticContext, @NotNull state: ATNState, altOrConfig: number | ATNConfig, context: PredictionContext, passedThroughNonGreedyDecision: boolean) {
+	constructor(lexerActionExecutor: LexerActionExecutor | undefined, semanticContext: SemanticContext, state: ATNState, altOrConfig: number | ATNConfig, context: PredictionContext, passedThroughNonGreedyDecision: boolean) {
 		if (typeof altOrConfig === "number") {
 			super(semanticContext, state, altOrConfig, context);
 		} else {

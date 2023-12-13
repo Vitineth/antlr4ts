@@ -25,7 +25,7 @@ import { EpsilonTransition } from "./EpsilonTransition";
 import { IntegerList } from "../misc/IntegerList";
 import { Interval } from "../misc/Interval";
 import { IntStream } from "../IntStream";
-import { NotNull, Nullable, Override } from "../Decorators";
+import {  Override } from "../Decorators";
 import { NotSetTransition } from "./NotSetTransition";
 import { NoViableAltException } from "../NoViableAltException";
 import { ObjectEqualityComparator } from "../misc/ObjectEqualityComparator";
@@ -259,7 +259,6 @@ export class ParserATNSimulator extends ATNSimulator {
 	public static dfa_debug: boolean = false;
 	public static retry_debug: boolean = false;
 
-	@NotNull
 	private predictionMode: PredictionMode = PredictionMode.LL;
 	public force_global_context: boolean = false;
 	public always_try_local_context: boolean = true;
@@ -307,17 +306,16 @@ export class ParserATNSimulator extends ATNSimulator {
 
 	private dfa?: DFA;
 
-	constructor(@NotNull atn: ATN, parser: Parser) {
+	constructor(atn: ATN, parser: Parser) {
 		super(atn);
 		this._parser = parser;
 	}
 
-	@NotNull
 	public getPredictionMode(): PredictionMode {
 		return this.predictionMode;
 	}
 
-	public setPredictionMode(@NotNull predictionMode: PredictionMode): void {
+	public setPredictionMode(predictionMode: PredictionMode): void {
 		this.predictionMode = predictionMode;
 	}
 
@@ -329,7 +327,7 @@ export class ParserATNSimulator extends ATNSimulator {
 	public adaptivePredict(/*@NotNull*/ input: TokenStream, decision: number, outerContext: ParserRuleContext | undefined): number;
 	public adaptivePredict(/*@NotNull*/ input: TokenStream, decision: number, outerContext: ParserRuleContext | undefined, useContext: boolean): number;
 	public adaptivePredict(
-		@NotNull input: TokenStream,
+		input: TokenStream,
 		decision: number,
 		outerContext: ParserRuleContext | undefined,
 		useContext?: boolean): number {
@@ -399,9 +397,9 @@ export class ParserATNSimulator extends ATNSimulator {
 	}
 
 	protected getStartState(
-		@NotNull dfa: DFA,
-		@NotNull input: TokenStream,
-		@NotNull outerContext: ParserRuleContext,
+		dfa: DFA,
+		input: TokenStream,
+		outerContext: ParserRuleContext,
 		useContext: boolean): SimulatorState | undefined {
 
 		if (!useContext) {
@@ -457,9 +455,9 @@ export class ParserATNSimulator extends ATNSimulator {
 	}
 
 	protected execDFA(
-		@NotNull dfa: DFA,
-		@NotNull input: TokenStream, startIndex: number,
-		@NotNull state: SimulatorState): number {
+		dfa: DFA,
+		input: TokenStream, startIndex: number,
+		state: SimulatorState): number {
 		let outerContext: ParserRuleContext = state.outerContext;
 		if (ParserATNSimulator.dfa_debug) {
 			console.log("DFA decision " + dfa.decision +
@@ -732,9 +730,9 @@ export class ParserATNSimulator extends ATNSimulator {
 	 * TODO: greedy + those
 	 */
 	protected execATN(
-		@NotNull dfa: DFA,
-		@NotNull input: TokenStream, startIndex: number,
-		@NotNull initialState: SimulatorState): number {
+		dfa: DFA,
+		input: TokenStream, startIndex: number,
+		initialState: SimulatorState): number {
 		if (ParserATNSimulator.debug) {
 			console.log("execATN decision " + dfa.decision + " exec LA(1)==" + this.getLookaheadName(input));
 		}
@@ -911,7 +909,7 @@ export class ParserATNSimulator extends ATNSimulator {
 	 * {@link ATN#INVALID_ALT_NUMBER} if a suitable alternative was not
 	 * identified and {@link #adaptivePredict} should report an error instead.
 	 */
-	protected handleNoViableAlt(@NotNull input: TokenStream, startIndex: number, @NotNull previous: SimulatorState): number {
+	protected handleNoViableAlt(input: TokenStream, startIndex: number, previous: SimulatorState): number {
 		if (previous.s0 != null) {
 			let alts: BitSet = new BitSet();
 			let maxAlt: number = 0;
@@ -1039,7 +1037,7 @@ export class ParserATNSimulator extends ATNSimulator {
 	 * `t`, or `undefined` if the target state for this edge is not
 	 * already cached
 	 */
-	protected getExistingTargetState(@NotNull s: DFAState, t: number): DFAState | undefined {
+	protected getExistingTargetState(s: DFAState, t: number): DFAState | undefined {
 		return s.getTarget(t);
 	}
 
@@ -1058,8 +1056,7 @@ export class ParserATNSimulator extends ATNSimulator {
 	 * `t`. If `t` does not lead to a valid DFA state, this method
 	 * returns {@link #ERROR}.
 	 */
-	@NotNull
-	protected computeTargetState(@NotNull dfa: DFA, @NotNull s: DFAState, remainingGlobalContext: ParserRuleContext | undefined, t: number, useContext: boolean, contextCache: PredictionContextCache): [DFAState, ParserRuleContext | undefined] {
+	protected computeTargetState(dfa: DFA, s: DFAState, remainingGlobalContext: ParserRuleContext | undefined, t: number, useContext: boolean, contextCache: PredictionContextCache): [DFAState, ParserRuleContext | undefined] {
 		let closureConfigs: ATNConfig[] = s.configs.toArray();
 		let contextElements: IntegerList | undefined;
 		let reach: ATNConfigSet = new ATNConfigSet();
@@ -1215,8 +1212,7 @@ export class ParserATNSimulator extends ATNSimulator {
 	 * rule stop state, otherwise return a new configuration set containing only
 	 * the configurations from `configs` which are in a rule stop state
 	 */
-	@NotNull
-	protected removeAllConfigsNotInRuleStopState(@NotNull configs: ATNConfigSet, contextCache: PredictionContextCache): ATNConfigSet {
+	protected removeAllConfigsNotInRuleStopState(configs: ATNConfigSet, contextCache: PredictionContextCache): ATNConfigSet {
 		if (PredictionMode.allConfigsInRuleStopStates(configs)) {
 			return configs;
 		}
@@ -1233,7 +1229,6 @@ export class ParserATNSimulator extends ATNSimulator {
 		return result;
 	}
 
-	@NotNull
 	protected computeStartState(
 		dfa: DFA,
 		globalContext: ParserRuleContext,
@@ -1447,8 +1442,7 @@ export class ParserATNSimulator extends ATNSimulator {
 	 * for a precedence DFA at a particular precedence level (determined by
 	 * calling {@link Parser#getPrecedence}).
 	 */
-	@NotNull
-	protected applyPrecedenceFilter(@NotNull configs: ATNConfigSet, globalContext: ParserRuleContext, contextCache: PredictionContextCache): ATNConfigSet {
+	protected applyPrecedenceFilter(configs: ATNConfigSet, globalContext: ParserRuleContext, contextCache: PredictionContextCache): ATNConfigSet {
 		let statesFromAlt1: Map<number, PredictionContext> = new Map<number, PredictionContext>();
 		let configSet: ATNConfigSet = new ATNConfigSet();
 		for (let config of configs) {
@@ -1496,7 +1490,7 @@ export class ParserATNSimulator extends ATNSimulator {
 		return configSet;
 	}
 
-	protected getReachableTarget(@NotNull source: ATNConfig, @NotNull trans: Transition, ttype: number): ATNState | undefined {
+	protected getReachableTarget(source: ATNConfig, trans: Transition, ttype: number): ATNState | undefined {
 		if (trans.matches(ttype, 0, this.atn.maxTokenType)) {
 			return trans.target;
 		}
@@ -1530,8 +1524,8 @@ export class ParserATNSimulator extends ATNSimulator {
 	}
 
 	protected getPredsForAmbigAlts(
-		@NotNull ambigAlts: BitSet,
-		@NotNull configs: ATNConfigSet,
+		ambigAlts: BitSet,
+		configs: ATNConfigSet,
 		nalts: number): SemanticContext[] | undefined {
 		// REACH=[1|1|[]|0:0, 1|2|[]|0:1]
 
@@ -1613,7 +1607,7 @@ export class ParserATNSimulator extends ATNSimulator {
 	 *  unpredicated config which behaves as "always true."
 	 */
 	protected evalSemanticContext(
-		@NotNull predPredictions: DFAState.PredPrediction[],
+		predPredictions: DFAState.PredPrediction[],
 		outerContext: ParserRuleContext,
 		complete: boolean): BitSet {
 		let predictions: BitSet = new BitSet();
@@ -1670,7 +1664,7 @@ export class ParserATNSimulator extends ATNSimulator {
 	 *
 	 * @since 4.3
 	 */
-	protected evalSemanticContextImpl(@NotNull pred: SemanticContext, parserCallStack: ParserRuleContext, alt: number): boolean {
+	protected evalSemanticContextImpl(pred: SemanticContext, parserCallStack: ParserRuleContext, alt: number): boolean {
 		return pred.eval(this._parser, parserCallStack);
 	}
 
@@ -1683,10 +1677,10 @@ export class ParserATNSimulator extends ATNSimulator {
 
 	protected closure(
 		sourceConfigs: ATNConfigSet,
-		@NotNull configs: ATNConfigSet,
+		configs: ATNConfigSet,
 		collectPredicates: boolean,
 		hasMoreContext: boolean,
-		@Nullable contextCache: PredictionContextCache,
+		contextCache: PredictionContextCache,
 		treatEofAsEpsilon: boolean): void {
 		if (contextCache == null) {
 			contextCache = PredictionContextCache.UNCACHED;
@@ -1705,13 +1699,13 @@ export class ParserATNSimulator extends ATNSimulator {
 	}
 
 	protected closureImpl(
-		@NotNull config: ATNConfig,
-		@NotNull configs: ATNConfigSet,
-		@Nullable intermediate: ATNConfigSet,
-		@NotNull closureBusy: Array2DHashSet<ATNConfig>,
+		config: ATNConfig,
+		configs: ATNConfigSet,
+		intermediate: ATNConfigSet,
+		closureBusy: Array2DHashSet<ATNConfig>,
 		collectPredicates: boolean,
 		hasMoreContexts: boolean,
-		@NotNull contextCache: PredictionContextCache,
+		contextCache: PredictionContextCache,
 		depth: number,
 		treatEofAsEpsilon: boolean): void {
 		if (ParserATNSimulator.debug) {
@@ -1875,7 +1869,6 @@ export class ParserATNSimulator extends ATNSimulator {
 		}
 	}
 
-	@NotNull
 	public getRuleName(index: number): string {
 		if (this._parser != null && index >= 0) {
 			return this._parser.ruleNames[index];
@@ -1883,7 +1876,7 @@ export class ParserATNSimulator extends ATNSimulator {
 		return "<rule " + index + ">";
 	}
 
-	protected getEpsilonTarget(@NotNull config: ATNConfig, @NotNull t: Transition, collectPredicates: boolean, inContext: boolean, contextCache: PredictionContextCache, treatEofAsEpsilon: boolean): ATNConfig | undefined {
+	protected getEpsilonTarget(config: ATNConfig, t: Transition, collectPredicates: boolean, inContext: boolean, contextCache: PredictionContextCache, treatEofAsEpsilon: boolean): ATNConfig | undefined {
 		switch (t.serializationType) {
 		case TransitionType.RULE:
 			return this.ruleTransition(config, t as RuleTransition, contextCache);
@@ -1918,18 +1911,16 @@ export class ParserATNSimulator extends ATNSimulator {
 		}
 	}
 
-	@NotNull
-	protected actionTransition(@NotNull config: ATNConfig, @NotNull t: ActionTransition): ATNConfig {
+	protected actionTransition(config: ATNConfig, t: ActionTransition): ATNConfig {
 		if (ParserATNSimulator.debug) {
 			console.log("ACTION edge " + t.ruleIndex + ":" + t.actionIndex);
 		}
 		return config.transform(t.target, false);
 	}
 
-	@Nullable
 	protected precedenceTransition(
-		@NotNull config: ATNConfig,
-		@NotNull pt: PrecedencePredicateTransition,
+		config: ATNConfig,
+		pt: PrecedencePredicateTransition,
 		collectPredicates: boolean,
 		inContext: boolean): ATNConfig {
 		if (ParserATNSimulator.debug) {
@@ -1957,10 +1948,9 @@ export class ParserATNSimulator extends ATNSimulator {
 		return c;
 	}
 
-	@Nullable
 	protected predTransition(
-		@NotNull config: ATNConfig,
-		@NotNull pt: PredicateTransition,
+		config: ATNConfig,
+		pt: PredicateTransition,
 		collectPredicates: boolean,
 		inContext: boolean): ATNConfig {
 		if (ParserATNSimulator.debug) {
@@ -1989,8 +1979,7 @@ export class ParserATNSimulator extends ATNSimulator {
 		return c;
 	}
 
-	@NotNull
-	protected ruleTransition(@NotNull config: ATNConfig, @NotNull t: RuleTransition, @Nullable contextCache: PredictionContextCache): ATNConfig {
+	protected ruleTransition(config: ATNConfig, t: RuleTransition, contextCache: PredictionContextCache): ATNConfig {
 		if (ParserATNSimulator.debug) {
 			console.log("CALL rule " + this.getRuleName(t.target.ruleIndex) +
 				", ctx=" + config.context);
@@ -2027,7 +2016,7 @@ export class ParserATNSimulator extends ATNSimulator {
 			return 0;
 		}
 
-	private isConflicted(@NotNull configset: ATNConfigSet, contextCache: PredictionContextCache): ConflictInfo | undefined {
+	private isConflicted(configset: ATNConfigSet, contextCache: PredictionContextCache): ConflictInfo | undefined {
 		if (configset.uniqueAlt !== ATN.INVALID_ALT_NUMBER || configset.size <= 1) {
 			return undefined;
 		}
@@ -2193,7 +2182,6 @@ export class ParserATNSimulator extends ATNSimulator {
 		return conflictingAlts;
 	}
 
-	@NotNull
 	public getTokenName(t: number): string {
 		if (t === Token.EOF) {
 			return "EOF";
@@ -2212,7 +2200,7 @@ export class ParserATNSimulator extends ATNSimulator {
 		return this.getTokenName(input.LA(1));
 	}
 
-	public dumpDeadEndConfigs(@NotNull nvae: NoViableAltException): void {
+	public dumpDeadEndConfigs(nvae: NoViableAltException): void {
 		console.log("dead end configs: ");
 		let deadEndConfigs = nvae.deadEndConfigs;
 		if (!deadEndConfigs) {
@@ -2235,11 +2223,10 @@ export class ParserATNSimulator extends ATNSimulator {
 		}
 	}
 
-	@NotNull
 	protected noViableAlt(
-		@NotNull input: TokenStream,
-		@NotNull outerContext: ParserRuleContext,
-		@NotNull configs: ATNConfigSet,
+		input: TokenStream,
+		outerContext: ParserRuleContext,
+		configs: ATNConfigSet,
 		startIndex: number): NoViableAltException {
 		return new NoViableAltException(this._parser, input,
 			input.get(startIndex),
@@ -2247,7 +2234,7 @@ export class ParserATNSimulator extends ATNSimulator {
 			configs, outerContext);
 	}
 
-	protected getUniqueAlt(@NotNull configs: Iterable<ATNConfig>): number {
+	protected getUniqueAlt(configs: Iterable<ATNConfig>): number {
 		let alt: number = ATN.INVALID_ALT_NUMBER;
 		for (let c of configs) {
 			if (alt === ATN.INVALID_ALT_NUMBER) {
@@ -2260,7 +2247,7 @@ export class ParserATNSimulator extends ATNSimulator {
 		return alt;
 	}
 
-	protected configWithAltAtStopState(@NotNull configs: Iterable<ATNConfig>, alt: number): boolean {
+	protected configWithAltAtStopState(configs: Iterable<ATNConfig>, alt: number): boolean {
 		for (let c of configs) {
 			if (c.alt === alt) {
 				if (c.state instanceof RuleStopState) {
@@ -2271,13 +2258,12 @@ export class ParserATNSimulator extends ATNSimulator {
 		return false;
 	}
 
-	@NotNull
 	protected addDFAEdge(
-		@NotNull dfa: DFA,
-		@NotNull fromState: DFAState,
+		dfa: DFA,
+		fromState: DFAState,
 		t: number,
 		contextTransitions: IntegerList | undefined,
-		@NotNull toConfigs: ATNConfigSet,
+		toConfigs: ATNConfigSet,
 		contextCache: PredictionContextCache): DFAState {
 		assert(contextTransitions == null || contextTransitions.isEmpty || dfa.isContextSensitive);
 
@@ -2317,15 +2303,14 @@ export class ParserATNSimulator extends ATNSimulator {
 		return to;
 	}
 
-	protected setDFAEdge(@Nullable p: DFAState, t: number, @Nullable q: DFAState): void {
+	protected setDFAEdge(p: DFAState, t: number, q: DFAState): void {
 		if (p != null) {
 			p.setTarget(t, q);
 		}
 	}
 
 	/** See comment on LexerInterpreter.addDFAState. */
-	@NotNull
-	protected addDFAContextState(@NotNull dfa: DFA, @NotNull configs: ATNConfigSet, returnContext: number, contextCache: PredictionContextCache): DFAState {
+	protected addDFAContextState(dfa: DFA, configs: ATNConfigSet, returnContext: number, contextCache: PredictionContextCache): DFAState {
 		if (returnContext !== PredictionContext.EMPTY_FULL_STATE_KEY) {
 			let contextConfigs: ATNConfigSet = new ATNConfigSet();
 			for (let config of configs) {
@@ -2343,8 +2328,7 @@ export class ParserATNSimulator extends ATNSimulator {
 	}
 
 	/** See comment on LexerInterpreter.addDFAState. */
-	@NotNull
-	protected addDFAState(@NotNull dfa: DFA, @NotNull configs: ATNConfigSet, contextCache: PredictionContextCache): DFAState {
+	protected addDFAState(dfa: DFA, configs: ATNConfigSet, contextCache: PredictionContextCache): DFAState {
 		let enableDfa: boolean = this.enable_global_context_dfa || !configs.isOutermostConfigSet;
 		if (enableDfa) {
 			if (!configs.isReadOnly) {
@@ -2392,12 +2376,11 @@ export class ParserATNSimulator extends ATNSimulator {
 		return added;
 	}
 
-	@NotNull
-	protected createDFAState(@NotNull dfa: DFA, @NotNull configs: ATNConfigSet): DFAState {
+	protected createDFAState(dfa: DFA, configs: ATNConfigSet): DFAState {
 		return new DFAState(configs);
 	}
 
-	protected reportAttemptingFullContext(@NotNull dfa: DFA, conflictingAlts: BitSet | undefined, @NotNull conflictState: SimulatorState, startIndex: number, stopIndex: number): void {
+	protected reportAttemptingFullContext(dfa: DFA, conflictingAlts: BitSet | undefined, conflictState: SimulatorState, startIndex: number, stopIndex: number): void {
 		if (ParserATNSimulator.debug || ParserATNSimulator.retry_debug) {
 			let interval: Interval = Interval.of(startIndex, stopIndex);
 			console.log("reportAttemptingFullContext decision=" + dfa.decision + ":" + conflictState.s0.configs +
@@ -2411,7 +2394,7 @@ export class ParserATNSimulator extends ATNSimulator {
 		}
 	}
 
-	protected reportContextSensitivity(@NotNull dfa: DFA, prediction: number, @NotNull acceptState: SimulatorState, startIndex: number, stopIndex: number): void {
+	protected reportContextSensitivity(dfa: DFA, prediction: number, acceptState: SimulatorState, startIndex: number, stopIndex: number): void {
 		if (ParserATNSimulator.debug || ParserATNSimulator.retry_debug) {
 			let interval: Interval = Interval.of(startIndex, stopIndex);
 			console.log("reportContextSensitivity decision=" + dfa.decision + ":" + acceptState.s0.configs +
@@ -2427,13 +2410,13 @@ export class ParserATNSimulator extends ATNSimulator {
 
 	/** If context sensitive parsing, we know it's ambiguity not conflict */
 	protected reportAmbiguity(
-		@NotNull dfa: DFA,
+		dfa: DFA,
 		D: DFAState,  // the DFA state from execATN(): void that had SLL conflicts
 		startIndex: number,
 		stopIndex: number,
 		exact: boolean,
-		@NotNull ambigAlts: BitSet,
-		@NotNull configs: ATNConfigSet) // configs that LL not SLL considered conflicting
+		ambigAlts: BitSet,
+		configs: ATNConfigSet) // configs that LL not SLL considered conflicting
 	{
 		if (ParserATNSimulator.debug || ParserATNSimulator.retry_debug) {
 			let interval: Interval = Interval.of(startIndex, stopIndex);

@@ -22,7 +22,7 @@ import { IntegerStack } from "./misc/IntegerStack";
 import { IntervalSet } from "./misc/IntervalSet";
 import { IntStream } from "./IntStream";
 import { Lexer } from "./Lexer";
-import { Override, NotNull, Nullable } from "./Decorators";
+import { Override, Nullable } from "./Decorators";
 import { ParseInfo } from "./atn/ParseInfo";
 import { ParserATNSimulator } from "./atn/ParserATNSimulator";
 import { ParserErrorListener } from "./ParserErrorListener";
@@ -86,7 +86,6 @@ export abstract class Parser extends Recognizer<Token, ParserATNSimulator> {
 	 * @see #getErrorHandler
 	 * @see #setErrorHandler
 	 */
-	@NotNull
 	protected _errHandler: ANTLRErrorStrategy = new DefaultErrorStrategy();
 
 	/**
@@ -187,7 +186,6 @@ export abstract class Parser extends Recognizer<Token, ParserATNSimulator> {
 	 * `ttype` and the error strategy could not recover from the
 	 * mismatched symbol
 	 */
-	@NotNull
 	public match(ttype: number): Token {
 		let t: Token = this.currentToken;
 		if (t.type === ttype) {
@@ -226,7 +224,6 @@ export abstract class Parser extends Recognizer<Token, ParserATNSimulator> {
 	 * a wildcard and the error strategy could not recover from the mismatched
 	 * symbol
 	 */
-	@NotNull
 	public matchWildcard(): Token {
 		let t: Token = this.currentToken;
 		if (t.type > 0) {
@@ -275,7 +272,6 @@ export abstract class Parser extends Recognizer<Token, ParserATNSimulator> {
 		return this._buildParseTrees;
 	}
 
-	@NotNull
 	public getParseListeners(): ParseTreeListener[] {
 		return this._parseListeners;
 	}
@@ -307,7 +303,7 @@ export abstract class Parser extends Recognizer<Token, ParserATNSimulator> {
 	 *
 	 * @throws {@link TypeError} if `listener` is `undefined`
 	 */
-	public addParseListener(@NotNull listener: ParseTreeListener): void {
+	public addParseListener(listener: ParseTreeListener): void {
 		if (listener == null) {
 			throw new TypeError("listener cannot be null");
 		}
@@ -394,7 +390,6 @@ export abstract class Parser extends Recognizer<Token, ParserATNSimulator> {
 	 * @ if the current parser does not
 	 * implement the `serializedATN` property.
 	 */
-	@NotNull
 	public getATNWithBypassAlts(): ATN {
 		let serializedAtn: string = this.serializedATN;
 		if (serializedAtn == null) {
@@ -451,12 +446,11 @@ export abstract class Parser extends Recognizer<Token, ParserATNSimulator> {
 		return matcher.compile(pattern, patternRuleIndex);
 	}
 
-	@NotNull
 	get errorHandler(): ANTLRErrorStrategy {
 		return this._errHandler;
 	}
 
-	set errorHandler(@NotNull handler: ANTLRErrorStrategy) {
+	set errorHandler(handler: ANTLRErrorStrategy) {
 		this._errHandler = handler;
 	}
 
@@ -474,7 +468,6 @@ export abstract class Parser extends Recognizer<Token, ParserATNSimulator> {
 	/** Match needs to return the current input symbol, which gets put
 	 *  into the label for the associated token ref; e.g., x=ID.
 	 */
-	@NotNull
 	get currentToken(): Token {
 		return this._input.LT(1);
 	}
@@ -588,7 +581,7 @@ export abstract class Parser extends Recognizer<Token, ParserATNSimulator> {
 	 * Always called by generated parsers upon entry to a rule. Access field
 	 * {@link #_ctx} get the current context.
 	 */
-	public enterRule(@NotNull localctx: ParserRuleContext, state: number, ruleIndex: number): void {
+	public enterRule(localctx: ParserRuleContext, state: number, ruleIndex: number): void {
 		this.state = state;
 		this._ctx = localctx;
 		this._ctx._start = this._input.LT(1);
@@ -726,7 +719,7 @@ export abstract class Parser extends Recognizer<Token, ParserATNSimulator> {
 	}
 
 	@Override
-	public precpred(@Nullable localctx: RuleContext, precedence: number): boolean {
+	public precpred( localctx: RuleContext, precedence: number): boolean {
 		return precedence >= this._precedenceStack.peek();
 	}
 
@@ -797,12 +790,10 @@ export abstract class Parser extends Recognizer<Token, ParserATNSimulator> {
 	 *
 	 * @see ATN#getExpectedTokens(int, RuleContext)
 	 */
-	@NotNull
 	public getExpectedTokens(): IntervalSet {
 		return this.atn.getExpectedTokens(this.state, this.context);
 	}
 
-	@NotNull
 	public getExpectedTokensWithinCurrentRule(): IntervalSet {
 		let atn: ATN = this.interpreter.atn;
 		let s: ATNState = atn.states[this.state];

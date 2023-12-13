@@ -16,7 +16,7 @@ import { FailedPredicateException } from "./FailedPredicateException";
 import { InputMismatchException } from "./InputMismatchException";
 import { InterpreterRuleContext } from "./InterpreterRuleContext";
 import { LoopEndState } from "./atn/LoopEndState";
-import { NotNull } from "./Decorators";
+
 import { Override } from "./Decorators";
 import { Parser } from "./Parser";
 import { ParserATNSimulator } from "./atn/ParserATNSimulator";
@@ -55,7 +55,6 @@ export class ParserInterpreter extends Parser {
 	protected pushRecursionContextStates: BitSet;
 
 	protected _ruleNames: string[];
-	@NotNull
 	private _vocabulary: Vocabulary;
 
 	/** This stack corresponds to the _parentctx, _parentState pair of locals
@@ -101,7 +100,7 @@ export class ParserInterpreter extends Parser {
 		grammarFileName: string, /*@NotNull*/ vocabulary: Vocabulary,
 		ruleNames: string[], atn: ATN, input: TokenStream);
 	constructor(
-		grammarFileName: ParserInterpreter | string, @NotNull vocabulary?: Vocabulary,
+		grammarFileName: ParserInterpreter | string, vocabulary?: Vocabulary,
 		ruleNames?: string[], atn?: ATN, input?: TokenStream) {
 		super(grammarFileName instanceof ParserInterpreter ? grammarFileName.inputStream : input!);
 		if (grammarFileName instanceof ParserInterpreter) {

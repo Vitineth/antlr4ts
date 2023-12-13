@@ -9,7 +9,7 @@ import { Lexer } from "../Lexer";
 import { LexerAction } from "./LexerAction";
 import { LexerActionType } from "./LexerActionType";
 import { MurmurHash } from "../misc/MurmurHash";
-import { NotNull, Override } from "../Decorators";
+import { Override } from "../Decorators";
 
 /**
  * Implements the `type` lexer action by setting `Lexer.type`
@@ -62,7 +62,7 @@ export class LexerTypeAction implements LexerAction {
 	 * value provided by `type`.
 	 */
 	@Override
-	public execute(@NotNull lexer: Lexer): void {
+	public execute(lexer: Lexer): void {
 		lexer.type = this._type;
 	}
 

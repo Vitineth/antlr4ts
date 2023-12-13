@@ -15,7 +15,7 @@ import { DecisionInfo } from "./DecisionInfo";
 import { DFA } from "../dfa/DFA";
 import { DFAState } from "../dfa/DFAState";
 import { ErrorInfo } from "./ErrorInfo";
-import { NotNull, Override } from "../Decorators";
+import { Override } from "../Decorators";
 import { LookaheadEventInfo } from "./LookaheadEventInfo";
 import { Parser } from "../Parser";
 import { ParserATNSimulator } from "./ParserATNSimulator";
@@ -69,7 +69,7 @@ export class ProfilingATNSimulator extends ParserATNSimulator {
 	public adaptivePredict(/*@NotNull*/ input: TokenStream, decision: number, outerContext: ParserRuleContext | undefined, useContext: boolean): number;
 	@Override
 	public adaptivePredict(
-		@NotNull input: TokenStream,
+		input: TokenStream,
 		decision: number,
 		outerContext: ParserRuleContext | undefined,
 		useContext?: boolean): number {
@@ -253,7 +253,7 @@ export class ProfilingATNSimulator extends ParserATNSimulator {
 	}
 
 	@Override
-	protected reportAmbiguity(@NotNull dfa: DFA, D: DFAState, startIndex: number, stopIndex: number, exact: boolean, @NotNull ambigAlts: BitSet, @NotNull configs: ATNConfigSet): void {
+	protected reportAmbiguity(dfa: DFA, D: DFAState, startIndex: number, stopIndex: number, exact: boolean, ambigAlts: BitSet, configs: ATNConfigSet): void {
 		if (this.currentState === undefined || this._input === undefined) {
 			throw new Error("Invalid state");
 		}

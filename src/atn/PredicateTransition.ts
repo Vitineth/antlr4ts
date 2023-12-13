@@ -7,7 +7,7 @@
 
 import { AbstractPredicateTransition } from "./AbstractPredicateTransition";
 import { ATNState } from "./ATNState";
-import { NotNull, Override } from "../Decorators";
+import { Override } from "../Decorators";
 import { SemanticContext } from "./SemanticContext";
 import { TransitionType } from "./TransitionType";
 
@@ -22,7 +22,7 @@ export class PredicateTransition extends AbstractPredicateTransition {
 	public predIndex: number;
 	public isCtxDependent: boolean;   // e.g., $i ref in pred
 
-	constructor(@NotNull target: ATNState, ruleIndex: number, predIndex: number, isCtxDependent: boolean) {
+	constructor(target: ATNState, ruleIndex: number, predIndex: number, isCtxDependent: boolean) {
 		super(target);
 		this.ruleIndex = ruleIndex;
 		this.predIndex = predIndex;
@@ -47,7 +47,6 @@ export class PredicateTransition extends AbstractPredicateTransition {
 	}
 
 	@Override
-	@NotNull
 	public toString(): string {
 		return "pred_" + this.ruleIndex + ":" + this.predIndex;
 	}

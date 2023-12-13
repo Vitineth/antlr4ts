@@ -6,7 +6,7 @@
 // ConvertTo-TS run at 2016-10-04T11:26:46.0343500-07:00
 
 import { CharStream } from "../../CharStream";
-import { NotNull, Override } from "../../Decorators";
+import { Override } from "../../Decorators";
 import { Token } from "../../Token";
 import { TokenSource } from "../../TokenSource";
 
@@ -42,7 +42,7 @@ export class RuleTagToken implements Token {
 	 * @exception IllegalArgumentException if `ruleName` is not defined
 	 * or empty.
 	 */
-	constructor(@NotNull ruleName: string, bypassTokenType: number, label?: string) {
+	constructor(ruleName: string, bypassTokenType: number, label?: string) {
 		if (ruleName == null || ruleName.length === 0) {
 			throw new Error("ruleName cannot be null or empty.");
 		}
@@ -57,7 +57,6 @@ export class RuleTagToken implements Token {
 	 *
 	 * @returns The name of the parser rule associated with this rule tag.
 	 */
-	@NotNull
 	get ruleName(): string {
 		return this._ruleName;
 	}

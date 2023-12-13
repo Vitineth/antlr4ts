@@ -8,7 +8,7 @@
 import assert from "./Assertions";
 import { DefaultEqualityComparator } from "./DefaultEqualityComparator";
 import { EqualityComparator } from "./EqualityComparator";
-import { NotNull, Nullable, Override, SuppressWarnings } from "../Decorators";
+import { Override, SuppressWarnings } from "../Decorators";
 import { JavaCollection, JavaSet } from "./Stubs";
 import { ObjectEqualityComparator } from "./ObjectEqualityComparator";
 import { MurmurHash } from "./MurmurHash";
@@ -23,7 +23,6 @@ const INITAL_CAPACITY: number = 16; // must be power of 2
 const LOAD_FACTOR: number = 0.75;
 
 export class Array2DHashSet<T extends { toString(): string; }> implements JavaSet<T> {
-	@NotNull
 	protected comparator: EqualityComparator<T>;
 
 	protected buckets: Array<T[] | undefined>;
@@ -204,7 +203,7 @@ export class Array2DHashSet<T extends { toString(): string; }> implements JavaSe
 		return this.containsFast(this.asElementType(o));
 	}
 
-	public containsFast(@Nullable obj: T): boolean {
+	public containsFast(obj: T): boolean {
 		if (obj == null) {
 			return false;
 		}

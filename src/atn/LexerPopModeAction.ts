@@ -9,7 +9,7 @@ import { Lexer } from "../Lexer";
 import { LexerAction } from "./LexerAction";
 import { LexerActionType } from "./LexerActionType";
 import { MurmurHash } from "../misc/MurmurHash";
-import { NotNull, Override } from "../Decorators";
+import { Override } from "../Decorators";
 
 /**
  * Implements the `popMode` lexer action by calling {@link Lexer#popMode}.
@@ -52,7 +52,7 @@ export class LexerPopModeAction implements LexerAction {
 	 * This action is implemented by calling {@link Lexer#popMode}.
 	 */
 	@Override
-	public execute(@NotNull lexer: Lexer): void {
+	public execute(lexer: Lexer): void {
 		lexer.popMode();
 	}
 

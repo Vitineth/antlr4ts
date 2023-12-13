@@ -9,7 +9,7 @@ import { Lexer } from "../Lexer";
 import { LexerAction } from "./LexerAction";
 import { LexerActionType } from "./LexerActionType";
 import { MurmurHash } from "../misc/MurmurHash";
-import { NotNull, Override } from "../Decorators";
+import { Override } from "../Decorators";
 
 /**
  * Implements the `mode` lexer action by calling {@link Lexer#mode} with
@@ -63,7 +63,7 @@ export class LexerModeAction implements LexerAction {
 	 * value provided by {@link #getMode}.
 	 */
 	@Override
-	public execute(@NotNull lexer: Lexer): void {
+	public execute(lexer: Lexer): void {
 		lexer.mode(this._mode);
 	}
 

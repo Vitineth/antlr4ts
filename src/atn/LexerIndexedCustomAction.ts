@@ -9,7 +9,7 @@ import { Lexer } from "../Lexer";
 import { LexerAction } from "./LexerAction";
 import { LexerActionType } from "./LexerActionType";
 import { MurmurHash } from "../misc/MurmurHash";
-import { NotNull, Override } from "../Decorators";
+import { Override } from "../Decorators";
 
 /**
  * This implementation of {@link LexerAction} is used for tracking input offsets
@@ -41,7 +41,7 @@ export class LexerIndexedCustomAction implements LexerAction {
 	 * @param action The lexer action to execute at a particular offset in the
 	 * input {@link CharStream}.
 	 */
-	constructor(offset: number, @NotNull action: LexerAction) {
+	constructor(offset: number, action: LexerAction) {
 		this._offset = offset;
 		this._action = action;
 	}
@@ -63,7 +63,6 @@ export class LexerIndexedCustomAction implements LexerAction {
 	 *
 	 * @returns A {@link LexerAction} object which executes the lexer action.
 	 */
-	@NotNull
 	get action(): LexerAction {
 		return this._action;
 	}

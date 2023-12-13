@@ -6,7 +6,7 @@
 // ConvertTo-TS run at 2016-10-04T11:26:40.5099429-07:00
 
 import { Arrays } from "./Arrays";
-import { NotNull, Override } from "../Decorators";
+import { Override } from "../Decorators";
 import { JavaCollection } from "./Stubs";
 
 const EMPTY_DATA: Int32Array = new Int32Array(0);
@@ -19,7 +19,6 @@ const MAX_ARRAY_SIZE: number = (((1 << 31) >>> 0) - 1) - 8;
  * @author Sam Harwell
  */
 export class IntegerList {
-	@NotNull
 	private _data: Int32Array;
 
 	private _size: number;

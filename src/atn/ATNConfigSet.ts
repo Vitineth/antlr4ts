@@ -16,7 +16,7 @@ import { BitSet } from "../misc/BitSet";
 import { ConflictInfo } from "./ConflictInfo";
 import { EqualityComparator } from "../misc/EqualityComparator";
 import { JavaSet } from "../misc/Stubs";
-import { NotNull, Override } from "../Decorators";
+import { Override } from "../Decorators";
 import { ObjectEqualityComparator } from "../misc/ObjectEqualityComparator";
 import { PredictionContext } from "./PredictionContext";
 import { PredictionContextCache } from "./PredictionContextCache";
@@ -147,7 +147,6 @@ export class ATNConfigSet implements JavaSet<ATNConfig> {
 	 * Get the set of all alternatives represented by configurations in this
 	 * set.
 	 */
-	@NotNull
 	public getRepresentedAlternatives(): BitSet {
 		if (this._conflictInfo != null) {
 			return this._conflictInfo.conflictedAlts.clone();

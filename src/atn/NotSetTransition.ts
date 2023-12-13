@@ -7,13 +7,13 @@
 
 import { ATNState } from "./ATNState";
 import { IntervalSet } from "../misc/IntervalSet";
-import { Override, NotNull, Nullable } from "../Decorators";
+import { Override, Nullable } from "../Decorators";
 import { SetTransition } from "./SetTransition";
 import { Transition } from "./Transition";
 import { TransitionType } from "./TransitionType";
 
 export class NotSetTransition extends SetTransition {
-	constructor(@NotNull target: ATNState, @Nullable set: IntervalSet) {
+	constructor(target: ATNState, set: IntervalSet) {
 		super(target, set);
 	}
 

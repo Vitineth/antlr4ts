@@ -7,7 +7,7 @@
 
 import { CharStream } from "./CharStream";
 import { CommonTokenFactory } from "./CommonTokenFactory";
-import { NotNull, Override } from "./Decorators";
+import { Override } from "./Decorators";
 import { Token } from "./Token";
 import { TokenFactory } from "./TokenFactory";
 import { TokenSource } from "./TokenSource";
@@ -65,7 +65,7 @@ export class ListTokenSource implements TokenSource {
 	 *
 	 * @exception NullPointerException if `tokens` is `undefined`
 	 */
-	constructor(@NotNull tokens: Token[], sourceName?: string) {
+	constructor(tokens: Token[], sourceName?: string) {
 		if (tokens == null) {
 			throw new Error("tokens cannot be null");
 		}
@@ -205,7 +205,7 @@ export class ListTokenSource implements TokenSource {
 	 * {@inheritDoc}
 	 */
 	// @Override
-	set tokenFactory(@NotNull factory: TokenFactory) {
+	set tokenFactory(factory: TokenFactory) {
 		this._factory = factory;
 	}
 
@@ -213,7 +213,6 @@ export class ListTokenSource implements TokenSource {
 	 * {@inheritDoc}
 	 */
 	@Override
-	@NotNull
 	get tokenFactory(): TokenFactory {
 		return this._factory;
 	}

@@ -6,7 +6,6 @@ import { ATNDeserializer } from "../../atn/ATNDeserializer";
 import { CharStream } from "../../CharStream";
 import { Lexer } from "../../Lexer";
 import { LexerATNSimulator } from "../../atn/LexerATNSimulator";
-import { NotNull } from "../../Decorators";
 import { Override } from "../../Decorators";
 import { RuleContext } from "../../RuleContext";
 import { Vocabulary } from "../../Vocabulary";
@@ -36,7 +35,7 @@ export class XPathLexer extends Lexer {
 	];
 
 	public static readonly ruleNames: string[] = [
-		"ANYWHERE", "ROOT", "WILDCARD", "BANG", "ID", "NameChar", "NameStartChar", 
+		"ANYWHERE", "ROOT", "WILDCARD", "BANG", "ID", "NameChar", "NameStartChar",
 		"STRING",
 	];
 
@@ -44,7 +43,7 @@ export class XPathLexer extends Lexer {
 		undefined, undefined, undefined, "'//'", "'/'", "'*'", "'!'",
 	];
 	private static readonly _SYMBOLIC_NAMES: Array<string | undefined> = [
-		undefined, "TOKEN_REF", "RULE_REF", "ANYWHERE", "ROOT", "WILDCARD", "BANG", 
+		undefined, "TOKEN_REF", "RULE_REF", "ANYWHERE", "ROOT", "WILDCARD", "BANG",
 		"ID", "STRING",
 	];
 	public static readonly VOCABULARY: Vocabulary = new VocabularyImpl(XPathLexer._LITERAL_NAMES, XPathLexer._SYMBOLIC_NAMES, []);

@@ -8,7 +8,7 @@
 import { ATNSimulator } from "./atn/ATNSimulator";
 import { CharStream } from "./CharStream";
 import { Interval } from "./misc/Interval";
-import { NotNull, Override } from "./Decorators";
+import { Override } from "./Decorators";
 import { Recognizer } from "./Recognizer";
 import { Token } from "./Token";
 import { TokenSource } from "./TokenSource";
@@ -49,7 +49,6 @@ export class CommonToken implements WritableToken {
 	 * the same source and input stream share a reference to the same
 	 * {@link Tuple2} containing these values.
 	 */
-	@NotNull
 	protected source: { source?: TokenSource, stream?: CharStream };
 
 	/**
@@ -75,7 +74,7 @@ export class CommonToken implements WritableToken {
 	 */
 	private stop: number;
 
-	constructor(type: number, text?: string, @NotNull source: { source?: TokenSource, stream?: CharStream } = CommonToken.EMPTY_SOURCE, channel: number = Token.DEFAULT_CHANNEL, start: number = 0, stop: number = 0) {
+	constructor(type: number, text?: string, source: { source?: TokenSource, stream?: CharStream } = CommonToken.EMPTY_SOURCE, channel: number = Token.DEFAULT_CHANNEL, start: number = 0, stop: number = 0) {
 		this._text = text;
 		this._type = type;
 		this.source = source;
@@ -100,7 +99,7 @@ export class CommonToken implements WritableToken {
 	 *
 	 * @param oldToken The token to copy.
 	 */
-	public static fromToken(@NotNull oldToken: Token): CommonToken {
+	public static fromToken(oldToken: Token): CommonToken {
 		let result: CommonToken = new CommonToken(oldToken.type, undefined, CommonToken.EMPTY_SOURCE, oldToken.channel, oldToken.startIndex, oldToken.stopIndex);
 		result._line = oldToken.line;
 		result.index = oldToken.tokenIndex;

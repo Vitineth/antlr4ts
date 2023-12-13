@@ -20,7 +20,7 @@ import { IntStream } from "../IntStream";
 import { Lexer } from "../Lexer";
 import { LexerActionExecutor } from "./LexerActionExecutor";
 import { LexerNoViableAltException } from "../LexerNoViableAltException";
-import { NotNull, Override } from "../Decorators";
+import { Override } from "../Decorators";
 import { OrderedATNConfigSet } from "./OrderedATNConfigSet";
 import { PredictionContext } from "./PredictionContext";
 import { PredicateTransition } from "./PredicateTransition";
@@ -53,24 +53,23 @@ export class LexerATNSimulator extends ATNSimulator {
 	protected mode: number = Lexer.DEFAULT_MODE;
 
 	/** Used during DFA/ATN exec to record the most recent accept configuration info */
-	@NotNull
 	protected prevAccept: LexerATNSimulator.SimState = new LexerATNSimulator.SimState();
 
 	constructor(/*@NotNull*/ atn: ATN);
 	constructor(/*@NotNull*/ atn: ATN, recog: Lexer | undefined);
-	constructor(@NotNull atn: ATN, recog?: Lexer) {
+	constructor(atn: ATN, recog?: Lexer) {
 		super(atn);
 		this.recog = recog;
 	}
 
-	public copyState(@NotNull simulator: LexerATNSimulator): void {
+	public copyState(simulator: LexerATNSimulator): void {
 		this._charPositionInLine = simulator.charPositionInLine;
 		this._line = simulator._line;
 		this.mode = simulator.mode;
 		this.startIndex = simulator.startIndex;
 	}
 
-	public match(@NotNull input: CharStream, mode: number): number {
+	public match(input: CharStream, mode: number): number {
 		this.mode = mode;
 		let mark: number = input.mark();
 		try {
@@ -98,7 +97,7 @@ export class LexerATNSimulator extends ATNSimulator {
 		this.mode = Lexer.DEFAULT_MODE;
 	}
 
-	protected matchATN(@NotNull input: CharStream): number {
+	protected matchATN(input: CharStream): number {
 		let startState: ATNState = this.atn.modeToStartState[this.mode];
 
 		if (LexerATNSimulator.debug) {
@@ -132,7 +131,7 @@ export class LexerATNSimulator extends ATNSimulator {
 		return predict;
 	}
 
-	protected execATN(@NotNull input: CharStream, @NotNull ds0: DFAState): number {
+	protected execATN(input: CharStream, ds0: DFAState): number {
 		// console.log("enter exec index "+input.index+" from "+ds0.configs);
 		if (LexerATNSimulator.debug) {
 			console.log(`start state closure=${ds0.configs}`);
@@ -211,7 +210,7 @@ export class LexerATNSimulator extends ATNSimulator {
 	 * `t`, or `undefined` if the target state for this edge is not
 	 * already cached
 	 */
-	protected getExistingTargetState(@NotNull s: DFAState, t: number): DFAState | undefined {
+	protected getExistingTargetState(s: DFAState, t: number): DFAState | undefined {
 		let target: DFAState | undefined = s.getTarget(t);
 		if (LexerATNSimulator.debug && target != null) {
 			console.log("reuse state " + s.stateNumber +
@@ -233,8 +232,7 @@ export class LexerATNSimulator extends ATNSimulator {
 	 * `t`. If `t` does not lead to a valid DFA state, this method
 	 * returns {@link #ERROR}.
 	 */
-	@NotNull
-	protected computeTargetState(@NotNull input: CharStream, @NotNull s: DFAState, t: number): DFAState {
+	protected computeTargetState(input: CharStream, s: DFAState, t: number): DFAState {
 		let reach: ATNConfigSet = new OrderedATNConfigSet();
 
 		// if we don't find an existing DFA state
@@ -279,7 +277,7 @@ export class LexerATNSimulator extends ATNSimulator {
 	 *  we can reach upon input `t`. Parameter `reach` is a return
 	 *  parameter.
 	 */
-	protected getReachableConfigSet(@NotNull input: CharStream, @NotNull closure: ATNConfigSet, @NotNull reach: ATNConfigSet, t: number): void {
+	protected getReachableConfigSet(input: CharStream, closure: ATNConfigSet, reach: ATNConfigSet, t: number): void {
 		// this is used to skip processing for configs which have a lower priority
 		// than a config that already reached an accept state for the same rule
 		let skipAlt: number = ATN.INVALID_ALT_NUMBER;
@@ -321,7 +319,7 @@ export class LexerATNSimulator extends ATNSimulator {
 	}
 
 	protected accept(
-		@NotNull input: CharStream, lexerActionExecutor: LexerActionExecutor | undefined,
+		input: CharStream, lexerActionExecutor: LexerActionExecutor | undefined,
 		startIndex: number, index: number, line: number, charPos: number): void {
 		if (LexerATNSimulator.debug) {
 			console.log(`ACTION ${lexerActionExecutor}`);
@@ -345,10 +343,9 @@ export class LexerATNSimulator extends ATNSimulator {
 		return undefined;
 	}
 
-	@NotNull
 	protected computeStartState(
-		@NotNull input: CharStream,
-		@NotNull p: ATNState): ATNConfigSet {
+		input: CharStream,
+		p: ATNState): ATNConfigSet {
 		let initialContext: PredictionContext = PredictionContext.EMPTY_FULL;
 		let configs: ATNConfigSet = new OrderedATNConfigSet();
 		for (let i = 0; i < p.numberOfTransitions; i++) {
@@ -369,7 +366,7 @@ export class LexerATNSimulator extends ATNSimulator {
 	 * @returns `true` if an accept state is reached, otherwise
 	 * `false`.
 	 */
-	protected closure(@NotNull input: CharStream, @NotNull config: ATNConfig, @NotNull configs: ATNConfigSet, currentAltReachedAcceptState: boolean, speculative: boolean, treatEofAsEpsilon: boolean): boolean {
+	protected closure(input: CharStream, config: ATNConfig, configs: ATNConfigSet, currentAltReachedAcceptState: boolean, speculative: boolean, treatEofAsEpsilon: boolean): boolean {
 		if (LexerATNSimulator.debug) {
 			console.log("closure(" + config.toString(this.recog, true) + ")");
 		}
@@ -430,10 +427,10 @@ export class LexerATNSimulator extends ATNSimulator {
 
 	// side-effect: can alter configs.hasSemanticContext
 	protected getEpsilonTarget(
-		@NotNull input: CharStream,
-		@NotNull config: ATNConfig,
-		@NotNull t: Transition,
-		@NotNull configs: ATNConfigSet,
+		input: CharStream,
+		config: ATNConfig,
+		t: Transition,
+		configs: ATNConfigSet,
 		speculative: boolean,
 		treatEofAsEpsilon: boolean): ATNConfig | undefined {
 		let c: ATNConfig | undefined;
@@ -557,7 +554,7 @@ export class LexerATNSimulator extends ATNSimulator {
 	 * @returns `true` if the specified predicate evaluates to
 	 * `true`.
 	 */
-	protected evaluatePredicate(@NotNull input: CharStream, ruleIndex: number, predIndex: number, speculative: boolean): boolean {
+	protected evaluatePredicate(input: CharStream, ruleIndex: number, predIndex: number, speculative: boolean): boolean {
 		// assume true if no recognizer was provided
 		if (this.recog == null) {
 			return true;
@@ -584,9 +581,9 @@ export class LexerATNSimulator extends ATNSimulator {
 	}
 
 	protected captureSimState(
-		@NotNull settings: LexerATNSimulator.SimState,
-		@NotNull input: CharStream,
-		@NotNull dfaState: DFAState): void {
+		settings: LexerATNSimulator.SimState,
+		input: CharStream,
+		dfaState: DFAState): void {
 		settings.index = input.index;
 		settings.line = this._line;
 		settings.charPos = this._charPositionInLine;
@@ -639,8 +636,7 @@ export class LexerATNSimulator extends ATNSimulator {
 	 * 	configuration containing an ATN rule stop state. Later, when
 	 * 	traversing the DFA, we will know which rule to accept.
 	 */
-	@NotNull
-	protected addDFAState(@NotNull configs: ATNConfigSet): DFAState {
+	protected addDFAState(configs: ATNConfigSet): DFAState {
 		/* the lexer evaluates predicates on-the-fly; by this point configs
 		 * should not contain any configurations with unevaluated predicates.
 		 */
@@ -672,15 +668,13 @@ export class LexerATNSimulator extends ATNSimulator {
 		return this.atn.modeToDFA[this.mode].addState(newState);
 	}
 
-	@NotNull
 	public getDFA(mode: number): DFA {
 		return this.atn.modeToDFA[mode];
 	}
 
 	/** Get the text matched so far for the current token.
 	 */
-	@NotNull
-	public getText(@NotNull input: CharStream): string {
+	public getText(input: CharStream): string {
 		// index is first lookahead char, don't include.
 		return input.getText(Interval.of(this.startIndex, input.index - 1));
 	}
@@ -701,7 +695,7 @@ export class LexerATNSimulator extends ATNSimulator {
 		this._charPositionInLine = charPositionInLine;
 	}
 
-	public consume(@NotNull input: CharStream): void {
+	public consume(input: CharStream): void {
 		let curChar: number = input.LA(1);
 		if (curChar === "\n".charCodeAt(0)) {
 			this._line++;
@@ -712,7 +706,6 @@ export class LexerATNSimulator extends ATNSimulator {
 		input.consume();
 	}
 
-	@NotNull
 	public getTokenName(t: number): string {
 		if (t === -1) {
 			return "EOF";

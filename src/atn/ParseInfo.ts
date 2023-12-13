@@ -7,7 +7,6 @@
 
 import { DecisionInfo } from "./DecisionInfo";
 import { DFA } from "../dfa/DFA";
-import { NotNull } from "../Decorators";
 import { ProfilingATNSimulator } from "./ProfilingATNSimulator";
 
 /**
@@ -19,7 +18,7 @@ import { ProfilingATNSimulator } from "./ProfilingATNSimulator";
 export class ParseInfo {
 	protected atnSimulator: ProfilingATNSimulator;
 
-	constructor(@NotNull atnSimulator: ProfilingATNSimulator) {
+	constructor(atnSimulator: ProfilingATNSimulator) {
 		this.atnSimulator = atnSimulator;
 	}
 
@@ -30,7 +29,6 @@ export class ParseInfo {
 	 * @returns An array of {@link DecisionInfo} instances, indexed by decision
 	 * number.
 	 */
-	@NotNull
 	public getDecisionInfo(): DecisionInfo[] {
 		return this.atnSimulator.getDecisionInfo();
 	}
@@ -43,7 +41,6 @@ export class ParseInfo {
 	 * @returns A list of decision numbers which required one or more
 	 * full-context predictions during parsing.
 	 */
-	@NotNull
 	public getLLDecisions(): number[] {
 		let decisions: DecisionInfo[] = this.atnSimulator.getDecisionInfo();
 		let LL: number[] = [];

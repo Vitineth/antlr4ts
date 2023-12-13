@@ -6,7 +6,7 @@
 // ConvertTo-TS run at 2016-10-04T11:26:24.7363448-07:00
 
 import { ATNState } from "./ATNState";
-import { Override, NotNull } from "../Decorators";
+import { Override } from "../Decorators";
 import { Transition } from "./Transition";
 import { TransitionType } from "./TransitionType";
 
@@ -15,7 +15,7 @@ export class ActionTransition extends Transition {
 	public actionIndex: number;
 	public isCtxDependent: boolean;  // e.g., $i ref in action
 
-	constructor(@NotNull target: ATNState, ruleIndex: number, actionIndex: number = -1, isCtxDependent: boolean = false) {
+	constructor(target: ATNState, ruleIndex: number, actionIndex: number = -1, isCtxDependent: boolean = false) {
 		super(target);
 		this.ruleIndex = ruleIndex;
 		this.actionIndex = actionIndex;

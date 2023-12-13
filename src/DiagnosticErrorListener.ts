@@ -15,7 +15,7 @@ import { RecognitionException } from "./RecognitionException";
 import { Recognizer } from "./Recognizer";
 import { SimulatorState } from "./atn/SimulatorState";
 import { Token } from "./Token";
-import { Override, NotNull } from "./Decorators";
+import { Override } from "./Decorators";
 import { Interval } from "./misc/Interval";
 
 /**
@@ -66,13 +66,13 @@ export class DiagnosticErrorListener implements ParserErrorListener {
 
 	@Override
 	public reportAmbiguity(
-		@NotNull recognizer: Parser,
-		@NotNull dfa: DFA,
+		recognizer: Parser,
+		dfa: DFA,
 		startIndex: number,
 		stopIndex: number,
 		exact: boolean,
 		ambigAlts: BitSet | undefined,
-		@NotNull configs: ATNConfigSet): void {
+		configs: ATNConfigSet): void {
 		if (this.exactOnly && !exact) {
 			return;
 		}
@@ -86,12 +86,12 @@ export class DiagnosticErrorListener implements ParserErrorListener {
 
 	@Override
 	public reportAttemptingFullContext(
-		@NotNull recognizer: Parser,
-		@NotNull dfa: DFA,
+		recognizer: Parser,
+		dfa: DFA,
 		startIndex: number,
 		stopIndex: number,
 		conflictingAlts: BitSet | undefined,
-		@NotNull conflictState: SimulatorState): void {
+		conflictState: SimulatorState): void {
 		let format: string = "reportAttemptingFullContext d=%s, input='%s'";
 		let decision: string = this.getDecisionDescription(recognizer, dfa);
 		let text: string = recognizer.inputStream.getText(Interval.of(startIndex, stopIndex));
@@ -101,12 +101,12 @@ export class DiagnosticErrorListener implements ParserErrorListener {
 
 	@Override
 	public reportContextSensitivity(
-		@NotNull recognizer: Parser,
-		@NotNull dfa: DFA,
+		recognizer: Parser,
+		dfa: DFA,
 		startIndex: number,
 		stopIndex: number,
 		prediction: number,
-		@NotNull acceptState: SimulatorState): void {
+		acceptState: SimulatorState): void {
 		let format: string = "reportContextSensitivity d=%s, input='%s'";
 		let decision: string = this.getDecisionDescription(recognizer, dfa);
 		let text: string = recognizer.inputStream.getText(Interval.of(startIndex, stopIndex));
@@ -115,8 +115,8 @@ export class DiagnosticErrorListener implements ParserErrorListener {
 	}
 
 	protected getDecisionDescription(
-		@NotNull recognizer: Parser,
-		@NotNull dfa: DFA): string {
+		recognizer: Parser,
+		dfa: DFA): string {
 		let decision: number = dfa.decision;
 		let ruleIndex: number = dfa.atnStartState.ruleIndex;
 
@@ -144,8 +144,7 @@ export class DiagnosticErrorListener implements ParserErrorListener {
 	 * @returns Returns `reportedAlts` if it is not `undefined`, otherwise
 	 * returns the set of alternatives represented in `configs`.
 	 */
-	@NotNull
-	protected getConflictingAlts(reportedAlts: BitSet | undefined, @NotNull configs: ATNConfigSet): BitSet {
+	protected getConflictingAlts(reportedAlts: BitSet | undefined, configs: ATNConfigSet): BitSet {
 		if (reportedAlts != null) {
 			return reportedAlts;
 		}

@@ -7,7 +7,7 @@
 
 import { ATNConfigSet } from "./atn/ATNConfigSet";
 import { RecognitionException } from "./RecognitionException";
-import { NotNull, Override } from "./Decorators";
+import { Override } from "./Decorators";
 import { Lexer } from "./Lexer";
 import { CharStream } from "./CharStream";
 import { Interval } from "./misc/Interval";
@@ -24,7 +24,7 @@ export class LexerNoViableAltException extends RecognitionException {
 
 	constructor(
 		lexer: Lexer | undefined,
-		@NotNull input: CharStream,
+		input: CharStream,
 		startIndex: number,
 		deadEndConfigs: ATNConfigSet | undefined) {
 		super(lexer, input);

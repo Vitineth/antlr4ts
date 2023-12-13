@@ -3,29 +3,22 @@
  * Licensed under the BSD-3-Clause license. See LICENSE file in the project root for license information.
  */
 
-export function NotNull(
-	target: any,
-	propertyKey: PropertyKey,
-	propertyDescriptor?: PropertyDescriptor | number) {
-	// intentionally empty
-}
+type ApplicableContexts = ClassMethodDecoratorContext | ClassFieldDecoratorContext | ClassGetterDecoratorContext;
 
 export function Nullable(
 	target: any,
-	propertyKey: PropertyKey,
-	propertyDescriptor?: PropertyDescriptor | number) {
+	propertyKey?: ApplicableContexts) {
 	// intentionally empty
 }
 
 export function Override(
 	target: any,
-	propertyKey: PropertyKey,
-	propertyDescriptor?: PropertyDescriptor) {
+	propertyKey?: ApplicableContexts) {
 	// do something with 'target' ...
 }
 
 export function SuppressWarnings(options: string) {
-	return (target: any, propertyKey: PropertyKey, descriptor?: PropertyDescriptor) => {
+	return (target: any, propertyKey?: ApplicableContexts, descriptor?: PropertyDescriptor) => {
 		// intentionally empty
 	};
 }

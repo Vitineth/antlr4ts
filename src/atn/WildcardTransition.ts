@@ -6,12 +6,12 @@
 // ConvertTo-TS run at 2016-10-04T11:26:37.9456839-07:00
 
 import { ATNState } from "./ATNState";
-import { Override, NotNull } from "../Decorators";
+import { Override } from "../Decorators";
 import { Transition } from "./Transition";
 import { TransitionType } from "./TransitionType";
 
 export class WildcardTransition extends Transition {
-	constructor(@NotNull target: ATNState) {
+	constructor(target: ATNState) {
 		super(target);
 	}
 
@@ -26,7 +26,6 @@ export class WildcardTransition extends Transition {
 	}
 
 	@Override
-	@NotNull
 	public toString(): string {
 		return ".";
 	}

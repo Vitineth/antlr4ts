@@ -6,7 +6,7 @@
 // ConvertTo-TS run at 2016-10-04T11:26:46.1670669-07:00
 
 import { Chunk } from "./Chunk";
-import { NotNull, Override } from "../../Decorators";
+import { Override } from "../../Decorators";
 
 /**
  * Represents a placeholder tag in a tree pattern. A tag can have any of the
@@ -58,7 +58,6 @@ export class TagChunk extends Chunk {
 	 *
 	 * @returns The tag for the chunk.
 	 */
-	@NotNull
 	get tag(): string {
 		return this._tag;
 	}
