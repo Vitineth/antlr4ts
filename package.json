@@ -5,9 +5,9 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "prepare": "npm run buildtool && npm link antlr4ts-cli && npm run antlr4ts && npm run tsc && npm link target/src && npm run buildrts",
-    "unlink": "npm unlink antlr4ts && npm unlink target/src && npm unlink antlr4ts-cli && npm run unlinkruntime && npm run unlinktool",
-    "unlinkruntime": "cd target/src && npm unlink",
+    "prepare": "npm run buildtool && npm link antlr4ts-cli && npm run antlr4ts && npm run tsc && npm link ./target/src && npm run buildrts",
+    "unlink": "npm unlink antlr4ts && npm unlink ./target/src && npm unlink antlr4ts-cli && npm run unlinkruntime && npm run unlinktool",
+    "unlinkruntime": "cd ./target/src && npm unlink",
     "buildtool": "cd tool && npm link -force",
     "unlinktool": "cd tool && npm unlink",
     "clean": "npm run unlink && git clean -idx",
@@ -52,10 +52,6 @@
     "profile-lexer-core": "node --prof target/benchmark/TimeLexerSpeed.js"
   },
   "sideEffects": false,
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/tunnelvisionlabs/antlr4ts.git"
-  },
   "keywords": [
     "ANTLR4",
     "typescript"
@@ -69,6 +65,7 @@
   "devDependencies": {
     "@deboxsoft/cpx": "^1.5.0",
     "@testdeck/mocha": "^0.1.2",
+    "@types/deep-equal": "^1.0.4",
     "@types/mocha": "^8.2.0",
     "@types/node": "^10.17.44",
     "@types/source-map-support": "^0.4.0",
